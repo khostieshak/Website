@@ -1,0 +1,17 @@
+{% load i18n %}
+<?xml version="1.0"?>
+<monthly>
+	{% for booking in object_list %}
+	<event>
+		<id>{{ booking.id }}</id>
+		<name>{{ booking.name }}</name>
+		<startdate>{{ booking.start|date:"Y-m-d" }}</startdate>
+		<enddate>{{ booking.end|date:"Y-m-d" }}</enddate>
+		<starttime>{{ booking.start|date:"H:i" }}</starttime>
+		<endtime>{{ booking.end|date:"H:i" }}</endtime>
+		<color>{% if booking.id == -1 %}#33C344{% else %}#094200{% endif %}</color>
+	</event>
+    {% endfor %}
+
+
+</monthly>

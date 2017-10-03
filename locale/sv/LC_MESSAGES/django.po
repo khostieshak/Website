@@ -1,0 +1,211 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-02 20:59+0200\n"
+"PO-Revision-Date: 2017-08-02 21:00+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: sv\n"
+"X-Generator: Poedit 2.0.2\n"
+
+#: .\booking_app\cms_apps.py:8
+msgid "Booking App"
+msgstr "Boknings app"
+
+#: .\booking_app\models.py:21 .\booking_app\models.py:40 .\maskin\models.py:21
+msgid "start"
+msgstr "start"
+
+#: .\booking_app\models.py:22 .\booking_app\models.py:41 .\maskin\models.py:22
+msgid "end"
+msgstr "slut"
+
+#: .\booking_app\models.py:28
+msgid "Booking spot"
+msgstr "Bokningstillfälle"
+
+#: .\booking_app\models.py:29 .\booking_app\models.py:32
+msgid "Booking spots"
+msgstr "Bokningstillfällen"
+
+#: .\booking_app\models.py:36
+msgid "app config"
+msgstr "app konfiguration"
+
+#: .\booking_app\models.py:37 .\maskin\models.py:19
+msgid "name"
+msgstr "namn"
+
+#: .\booking_app\models.py:39
+msgid "made by"
+msgstr "skapad av"
+
+#: .\booking_app\models.py:49
+msgid "Booking"
+msgstr "Bokning"
+
+#: .\booking_app\models.py:50
+msgid "Bookings"
+msgstr "Bokningar"
+
+#: .\booking_app\templates\book.html:14 .\maskin\templates\profile.html:27
+msgid "Save changes"
+msgstr "Spara ändringar"
+
+#: .\booking_app\templates\bookings.html:19
+#: .\booking_app\templates\bookings.html:27
+msgid "Make booking"
+msgstr "Gör bokning"
+
+#: .\booking_app\templates\bookings.html:23
+msgid "Do you want to book this?"
+msgstr "Vill du boka det här?"
+
+#: .\booking_app\templates\bookings.html:24
+msgid "Start"
+msgstr "Start"
+
+#: .\booking_app\templates\bookings.html:25
+msgid "End"
+msgstr "Slut"
+
+#: .\booking_app\templates\bookings.html:29
+msgid "Login required to make bookings."
+msgstr "Inloggning krävs för att göra bokningar."
+
+#: .\booking_app\templates\bookings.html:70
+msgid "Something went wrong"
+msgstr "Någonting gick fel"
+
+#: .\booking_app\views.py:35
+msgid "Free"
+msgstr "Ledig"
+
+#: .\maskin\forms.py:8
+msgid "Become member"
+msgstr "Bli medlem"
+
+#: .\maskin\forms.py:8
+msgid "Want to become a member?"
+msgstr "Vill du bli medlem?"
+
+#: .\maskin\models.py:20
+msgid "Member group"
+msgstr "Medlemsgrupp"
+
+#: .\maskin\models.py:33 .\maskin\templates\profile.html:11
+#: .\maskin\templates\profile.html.py:15
+msgid "School year"
+msgstr "Läsår"
+
+#: .\maskin\models.py:34
+msgid "School years"
+msgstr "Läsår"
+
+#: .\maskin\models.py:40
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+#: .\maskin\models.py:42
+msgid "Mechanical engingering"
+msgstr "Maskinteknik"
+
+#: .\maskin\models.py:43
+msgid "Design and Product Development"
+msgstr "Design och produktutveckling"
+
+#: .\maskin\models.py:44
+msgid "Energy-Environment-Management"
+msgstr "Energi - miljö - management"
+
+#: .\maskin\models.py:45
+msgid "Masterprogram"
+msgstr "Masterprogram"
+
+#: .\maskin\models.py:46
+msgid "Other"
+msgstr "Annat"
+
+#: .\maskin\models.py:48
+msgid "Program"
+msgstr "Program"
+
+#: .\maskin\models.py:49
+msgid "Year"
+msgstr "År"
+
+#: .\maskin\models.py:51
+msgid "Master profile"
+msgstr "Masterprofil"
+
+#: .\maskin\models.py:57
+msgid "Profile"
+msgstr "Profil"
+
+#: .\maskin\models.py:58
+msgid "Profiles"
+msgstr "Profiler"
+
+#: .\maskin\settings\base.py:147
+msgid "swedish"
+msgstr "svenska"
+
+#: .\maskin\settings\base.py:148
+msgid "english"
+msgstr "engelska"
+
+#: .\maskin\templates\aldryn_newsblog\article_detail.html:15
+msgid "Previous Article"
+msgstr "Föregående artikel"
+
+#: .\maskin\templates\aldryn_newsblog\article_detail.html:17
+msgid "Back to Overview"
+msgstr "Tillbaka till översikt"
+
+#: .\maskin\templates\aldryn_newsblog\article_detail.html:19
+msgid "Next Article"
+msgstr "Nästa artikel"
+
+#: .\maskin\templates\aldryn_newsblog\article_list.html:23
+#: .\maskin\templates\aldryn_newsblog\plugins\latest_articles.html:20
+msgid "No items available"
+msgstr "Inga objekt är tillgängliga här för tillfället"
+
+#: .\maskin\templates\aldryn_newsblog\includes\pagination.html:9
+msgid "Previous"
+msgstr "Föregående"
+
+#: .\maskin\templates\aldryn_newsblog\includes\pagination.html:43
+msgid "Next"
+msgstr "Nästa"
+
+#: .\maskin\templates\base.html:67
+msgid "Log in"
+msgstr "Logga in"
+
+#: .\maskin\templates\profile.html:11
+msgid "You are registerd as a member for Maskinsektionen for this school year!"
+msgstr "Du är medlem i Maskinteknolgsektionen för det här läsåret!"
+
+#: .\maskin\templates\profile.html:15
+msgid "You are not a member of Maskinsektionen for this school year."
+msgstr "Du är inte medlem i Maskinteknologsektionen för det här läsåret."
+
+#~ msgid "Swedish"
+#~ msgstr "Svenska"
+
+#~ msgid "English"
+#~ msgstr "Engelska"
+
+#~ msgid "sv"
+#~ msgstr "sv"

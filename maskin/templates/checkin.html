@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load i18n %}
+
+{% block title %}{% trans 'Check in' %}{% endblock title %}
+
+{% block content %}
+    <div class="content">
+        <form id="checkin_form">
+            <input type="text" id="checkin_field">
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>LiuID</th>
+                    <th>Namn</th>
+                    <th>Medlem</th>
+                </tr>
+            </thead>
+            <tbody id="search_results">
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+     <script>
+    $("#checkin_field").keyup(function () {
+        if(this.value.length > 2) {
+            $.ajax({
+                url: '/{{ LANGUAGE_CODE }}/ajax/search',
+                data: {query: $(this).val()},
+                datatype: 'html',
+                success: function (data) {
+                    $("#search_results").html(data)
+                }
+            });
+        }
+    });
+
+    $('#checkin_form').submit(function () {
+        return false;
+    });
+  </script>
+{% endblock javascript %}

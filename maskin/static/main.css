@@ -1,0 +1,18 @@
+.img-article{
+    margin: 0 auto;
+}
+
+.sub-menu{
+    margin-top: 20px;
+}
+
+.sub-menu .list-group-item{
+    font-size: 12px;
+    font-weight: 800;
+    border: 0;
+}
+
+.sub-menu .list-group-item.active{
+    background-color: #b20e10;
+}
+

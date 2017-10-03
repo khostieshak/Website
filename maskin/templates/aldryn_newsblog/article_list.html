@@ -1,0 +1,21 @@
+{% extends "aldryn_newsblog/base.html" %}
+{% load i18n thumbnail%}
+
+{% block newsblog_content %}
+    {% for article in article_list %}
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% include "aldryn_newsblog/includes/article.html" with detail_view="true" %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>{% trans "No items available" %}</p>
+    {% endfor %}
+
+    {% include "aldryn_newsblog/includes/pagination.html" %}
+{% endblock %}
+
+
+

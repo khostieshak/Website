@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static "monthly.css" %}">
+    {% placeholder "content" %}
+    <div class="content">
+        <div class="monthly" id="mycalendar"></div>
+    </div>
+    <div class="modal fade" id="BookingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">{% trans 'Make booking' %}</h4>
+                </div>
+                <div class="modal-body">
+                    {% if user.is_authenticated %}
+                        {% trans 'Do you want to book this?' %}
+                        <div><b>{% trans 'Start' %}:</b> <span id="id_start"></span></div>
+                        <div><b>{% trans 'End' %}:</b> <span id="id_end"></span></div>
+
+                        <button type="submit" id="savebooking" class="btn btn-primary">{% trans 'Make booking'%}</button>
+                    {% else %}
+                        {% trans 'Login required to make bookings.' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="{% static 'monthly.js' %}"></script>
+    <script type="text/javascript">
+        $(window).load( function() {
+            $('#mycalendar').monthly({
+                mode: 'event',
+                xmlUrl: 'bookings.xml',
+                weekStart: 'Mon',
+                eventList: false
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $('#BookingModal').on('show.bs.modal', function (event) {
+            var event = $(event.relatedTarget);
+            var start = event.data('start');
+            var end = event.data('end');
+            var modal = $(this);
+            modal.find('.modal-body #id_start').text(start);
+            modal.find('.modal-body #id_end').text(end);
+        });
+        $('#savebooking').on('click', function () {
+            $.ajax({
+                url: 'book',
+                data: {
+                    'start': $('.modal-body #id_start').text(),
+                    'end': $('.modal-body #id_end').text(),
+               },
+               type: 'post',
+               success: function (data) {
+                  location.reload();
+               },
+               error: function (data) {
+
+                   $('.modal-body').prepend('<div class="alert alert-danger" role="alert">{% trans 'Something went wrong' %}</div>');
+               }
+            });
+        });
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+    </script>
+
+{% endblock content %}
+
+
+

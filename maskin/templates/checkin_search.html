@@ -1,0 +1,18 @@
+{% load member_check %}
+{% load i18n %}
+{% if users.count > 0 %}
+    {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            {% if user|is_member %}
+                <td><i class="fa fa-check fa-lg text-success" aria-hidden="true"></i></td>
+            {% else %}
+                <td><i class="fa fa-times fa-lg text-danger" aria-hidden="true"></i></td>
+            {% endif %}
+
+        </tr>
+    {% endfor %}
+{% else %}
+    {% trans 'No users found.' %}
+{% endif %}

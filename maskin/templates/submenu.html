@@ -1,0 +1,10 @@
+{% load menu_tags %}
+
+{% for child in children %}
+	<a class="list-group-item {% if child.selected %} active{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+	{% if child.children and child.selected or child.ancestor %}
+	<ul>
+		{% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+	</ul>
+	{% endif %}
+{% endfor %}
