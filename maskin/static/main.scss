@@ -1,0 +1,97 @@
+@import "scss/variables";
+@import "scss/aldryn";
+@import "scss/subnav";
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+
+p, a, h1, h2, h3, h4, h5{
+  font-family: $font;
+}
+
+body{
+  background-color: $dark-red;
+}
+
+.content{
+  background-color: white;
+}
+
+.main-content{
+  border-left: 2px solid $shadow-red;
+  border-right: 2px solid $shadow-red;
+  padding-top: $margin-top;
+  padding-bottom: $margin-top;
+}
+
+.sidebar{
+      border-left: 2px solid $shadow-red;
+      border-right: 2px solid $shadow-red;
+  }
+
+.header, .footer{
+  background-color: $main-red;
+  padding: 3vh;
+}
+
+.header{
+  .jumbotron{
+    color:$yellow;
+    background-color: $main-red;
+    margin:0;
+    padding: 0;
+    h1{
+      font-family: 'Permanent Marker', cursive;
+    }
+
+  }
+  img{
+    height: 94vh;
+    width: auto;
+  }
+}
+
+.navbar-custom{
+  background-color: $main-red;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-top: 2px solid $shadow-red;
+  border-bottom: 2px solid $shadow-red;
+  button{
+    i {
+      color: $yellow;
+    }
+    &:focus{
+      outline: 5px auto $yellow;
+    }
+  }
+  li{
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    a{
+      color:$yellow;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: normal;
+    }
+
+    &.active{
+      background-color: $yellow;
+      a{
+        color:$main-red;
+      }
+    }
+  }
+}
+
+
+
+.img-responsive{
+    max-width: 100%;
+    height: auto;
+}
+
+.btn-maskin{
+  color: $yellow;
+  background-color: $main-red;
+  border-color: $main-red;
+}

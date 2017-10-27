@@ -1,0 +1,27 @@
+{% load i18n %}
+
+{# submission of this form will forward to "includes/search_results.html" #}
+{# this form can also be submitted using ajax and "includes/search_results.html" is returned #}
+<div class="row">
+    <div class="col-md-6">
+        <form id="article-search-form">
+            <div class="form-group">
+                <label for="search-plugin-{{ instance.pk }}"></label>
+                <input class="form-control" type="text" id="article-search-field" name="q" id="search-plugin-{{ instance.pk }}" placeholder="{% trans 'Search for title' %}">
+            </div>
+            <input type="hidden" name="max_articles" value="{{ instance.max_articles }}">
+        </form>
+    </div>
+</div>
+<script>
+    $("#article-search-field").keyup(function () {
+        $.ajax({
+            url: '{{ query_url }}',
+            type: 'get',
+            data: $("#article-search-form").serialize(),
+            success: function (data) {
+                $("#article-list").html(data);
+            }
+        });
+    });
+</script>

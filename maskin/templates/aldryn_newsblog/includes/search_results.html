@@ -1,13 +1,15 @@
-{% load i18n thumbnail%}
-<div id="article-list">
-{% for article in article_list %}
+{% load i18n apphooks_config_tags %}
+
+{% block newsblog_content %}
+    {% for article in article_list %}
     <div class="row">
         <div class="col">
             {% include "aldryn_newsblog/includes/article.html" with namespace=instance.app_config.namespace detail_view="true" %}
         </div>
     </div>
 
-{% empty %}
-    <p>{% trans "No items available" %}</p>
-{% endfor %}
-</div>
+    {% empty %}
+        <p>{% trans "No items available" %}</p>
+    {% endfor %}
+
+{% endblock %}

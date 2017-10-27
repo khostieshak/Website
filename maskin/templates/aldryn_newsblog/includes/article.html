@@ -1,5 +1,5 @@
 {% load i18n staticfiles thumbnail cms_tags apphooks_config_tags %}
-
+<hr>
 <article class="article
     {% if article.is_featured %} featured{% endif %}
     {% if not article.published %} unpublished{% endif %}">
@@ -10,36 +10,32 @@
             <img class="img-responsive img-article" src="{% thumbnail article.featured_image 800x450 crop subject_location=article.featured_image.subject_location %}" alt="{{ article.featured_image.alt }}">
         </p>
     {% endif %}
-    <div class="content">
-    {% if article.categories.exists %}
-        <p>
-            {% for category in article.categories.all %}
-                <a href="{% namespace_url 'article-list-by-category' category.slug namespace=namespace default='' %}">{{ category.name }}</a>
-                {% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </p>
-    {% endif %}
-
-    <h2>
-        <a href="{% namespace_url 'article-detail' article.slug namespace=namespace default='' %}">{% render_model article "title" %}</a>
-    </h2>
-
-    <p>{{ article.publishing_date|date }}</p>
-    <p>
-        {% include "aldryn_newsblog/includes/author.html" with author=article.author %}
-
-        {% if article.tags %}
-            <span>
+        <h3 class="article-title">
+            {% render_model article "title" %}
+        </h3>
+        <p class="article-info">
+            <i class="fa fa-calendar" aria-hidden="true"></i> <span>{{ article.publishing_date|date }}</span>
+            <i class="fa fa-pencil" aria-hidden="true"></i> <span>{% include "aldryn_newsblog/includes/author.html" with author=article.author %}</span>
+            {% if article.tags.exists %}
+                <i class="fa fa-hashtag" aria-hidden="true"></i>
+                <span>
                 {% for tag in article.tags.all %}
-                    <a href="{% namespace_url 'article-list-by-tag' tag=tag.slug namespace=namespace default='' %}">{{ tag.name }}</a>
+                    <a href="" class="article-link" data-info="<i class='fa fa-hashtag' aria-hidden='true'></i> {{ tag.name }}" data-src="{% namespace_url 'article-list-by-tag' tag=tag.slug namespace=namespace default='' %}">{{ tag.name }}</a>
                 {% endfor %}
-            </span>
+                </span>
         {% endif %}
-    </p>
+            {% if article.categories.exists %}
+                <i class="fa fa-tags" aria-hidden="true"></i>
+                {% for category in article.categories.all %}
+                    <a href="" class="badge badge-dark category-badge article-link" data-info="<i class='fa fa-tags' aria-hidden='true'></i> {{ category.name }}" data-id="{{ category.id }}" data-src="{% namespace_url 'article-list-by-category' category.slug namespace=namespace default='' %}">
+                        {{ category.name }}
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </p>
     {% render_model article "lead_in" %}
 
     {% if detail_view %}
         {% render_placeholder article.content language placeholder_language %}
     {% endif %}
-    </div>
 </article>

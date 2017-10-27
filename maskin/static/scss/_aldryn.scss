@@ -1,0 +1,38 @@
+@import "variables";
+.category-list{
+    list-style-type: none;
+    display: block;
+    padding: 0;
+    li{
+        display: inline;
+        float: left;
+    }
+}
+
+.category-badge{
+    margin-left: 5px;
+}
+
+.article-title{
+    a {
+        color: black;
+        text-decoration: none;
+    }
+}
+
+.article-info{
+    span{ margin-right: 20px;}
+}
+
+.search-results{
+    list-style-type: none;
+    padding: 0;
+    a {
+        color: black;
+        text-decoration: none;
+    }
+}
+
+#search-info{
+    margin-top: 15px;
+}

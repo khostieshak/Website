@@ -2,9 +2,12 @@
 maskin.env
 import_members.py
 \media
+
+.idea/
 Medlemmar_MTS.csv
 maskinsektionen.zip
 project.db
 shellkomandon.txt
 testdata.csv
 testdata2.csv
+*.zip

@@ -1,0 +1,20 @@
+{% load i18n apphooks_config_tags %}
+<div class="row">
+    <div class="col">
+
+        <ul class="category-list">
+            <li>
+                <a href="" class="badge badge-dark category-badge article-link" data-info="<i class='fa fa-tags' aria-hidden='true'></i> {% trans "All" %}" data-src="{% namespace_url "article-list" namespace=instance.app_config.namespace default='' %}">
+                    {% trans "All" %}
+                </a>
+            </li>
+            {% for category in categories %}
+                <li>
+                    <a href="" class="badge badge-dark category-badge article-link" data-info="<i class='fa fa-tags' aria-hidden='true'></i> {{ category.name }}" data-id="{{ category.id }}" data-src="{% namespace_url "article-list-by-category" category.slug namespace=instance.app_config.namespace default='' %}">
+                        {{ category.name }} ({{ category.article_count }})
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

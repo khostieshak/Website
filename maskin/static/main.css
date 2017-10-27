@@ -1,18 +1,117 @@
-.img-article{
-    margin: 0 auto;
-}
+@import url("https://fonts.googleapis.com/css?family=Permanent+Marker");
+.category-list {
+  list-style-type: none;
+  display: block;
+  padding: 0; }
+  .category-list li {
+    display: inline;
+    float: left; }
 
-.sub-menu{
-    margin-top: 20px;
-}
+.category-badge {
+  margin-left: 5px; }
 
-.sub-menu .list-group-item{
-    font-size: 12px;
-    font-weight: 800;
-    border: 0;
-}
+.article-title a {
+  color: black;
+  text-decoration: none; }
 
-.sub-menu .list-group-item.active{
-    background-color: #b20e10;
-}
+.article-info span {
+  margin-right: 20px; }
 
+.search-results {
+  list-style-type: none;
+  padding: 0; }
+  .search-results a {
+    color: black;
+    text-decoration: none; }
+
+#search-info {
+  margin-top: 15px; }
+
+.subnav {
+  margin-top: 30px;
+  padding: 0;
+  list-style-type: none; }
+  .subnav a {
+    color: black;
+    text-decoration: none;
+    padding-left: 15px; }
+  .subnav li {
+    padding: 10px 0 0; }
+  .subnav li.active {
+    border-radius: 5px;
+    background-color: #B9000A; }
+    .subnav li.active a {
+      color: #FFE500; }
+  .subnav ul {
+    list-style-type: none; }
+  .subnav hr {
+    margin: 10px 0 0; }
+
+p, a, h1, h2, h3, h4, h5 {
+  font-family: Helvetica, sans-serif; }
+
+body {
+  background-color: #8F000A; }
+
+.content {
+  background-color: white; }
+
+.main-content {
+  border-left: 2px solid #530009;
+  border-right: 2px solid #530009;
+  padding-top: 30px;
+  padding-bottom: 30px; }
+
+.sidebar {
+  border-left: 2px solid #530009;
+  border-right: 2px solid #530009; }
+
+.header, .footer {
+  background-color: #B9000A;
+  padding: 3vh; }
+
+.header .jumbotron {
+  color: #FFE500;
+  background-color: #B9000A;
+  margin: 0;
+  padding: 0; }
+  .header .jumbotron h1 {
+    font-family: 'Permanent Marker', cursive; }
+.header img {
+  height: 94vh;
+  width: auto; }
+
+.navbar-custom {
+  background-color: #B9000A;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-top: 2px solid #530009;
+  border-bottom: 2px solid #530009; }
+  .navbar-custom button i {
+    color: #FFE500; }
+  .navbar-custom button:focus {
+    outline: 5px auto #FFE500; }
+  .navbar-custom li {
+    height: 50px;
+    line-height: 50px;
+    text-align: center; }
+    .navbar-custom li a {
+      color: #FFE500;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: normal; }
+    .navbar-custom li.active {
+      background-color: #FFE500; }
+      .navbar-custom li.active a {
+        color: #B9000A; }
+
+.img-responsive {
+  max-width: 100%;
+  height: auto; }
+
+.btn-maskin {
+  color: #FFE500;
+  background-color: #B9000A;
+  border-color: #B9000A; }
+
+/*# sourceMappingURL=main.css.map */

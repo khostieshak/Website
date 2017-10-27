@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-02 20:59+0200\n"
-"PO-Revision-Date: 2017-08-02 21:00+0200\n"
+"POT-Creation-Date: 2017-10-27 18:25+0200\n"
+"PO-Revision-Date: 2017-10-26 00:14+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: sv\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #: .\booking_app\cms_apps.py:8
 msgid "Booking App"
@@ -58,7 +58,7 @@ msgstr "Bokning"
 msgid "Bookings"
 msgstr "Bokningar"
 
-#: .\booking_app\templates\book.html:14 .\maskin\templates\profile.html:27
+#: .\booking_app\templates\book.html:14 .\maskin\templates\profile.html:28
 msgid "Save changes"
 msgstr "Spara ändringar"
 
@@ -91,11 +91,15 @@ msgstr "Någonting gick fel"
 msgid "Free"
 msgstr "Ledig"
 
-#: .\maskin\forms.py:8
+#: .\maskin\admin.py:13
+msgid "Name"
+msgstr "Namn"
+
+#: .\maskin\forms.py:9
 msgid "Become member"
 msgstr "Bli medlem"
 
-#: .\maskin\forms.py:8
+#: .\maskin\forms.py:10
 msgid "Want to become a member?"
 msgstr "Vill du bli medlem?"
 
@@ -103,13 +107,17 @@ msgstr "Vill du bli medlem?"
 msgid "Member group"
 msgstr "Medlemsgrupp"
 
-#: .\maskin\models.py:33 .\maskin\templates\profile.html:11
-#: .\maskin\templates\profile.html.py:15
+#: .\maskin\models.py:33 .\maskin\templates\profile.html:12
+#: .\maskin\templates\profile.html:16
 msgid "School year"
 msgstr "Läsår"
 
 #: .\maskin\models.py:34
 msgid "School years"
+msgstr "Läsår"
+
+#: .\maskin\models.py:39
+msgid "Member years"
 msgstr "Läsår"
 
 #: .\maskin\models.py:40
@@ -141,18 +149,18 @@ msgid "Program"
 msgstr "Program"
 
 #: .\maskin\models.py:49
-msgid "Year"
-msgstr "År"
+msgid "Start year"
+msgstr "Startår"
 
-#: .\maskin\models.py:51
+#: .\maskin\models.py:50
 msgid "Master profile"
 msgstr "Masterprofil"
 
-#: .\maskin\models.py:57
+#: .\maskin\models.py:56 .\maskin\templates\profile.html:5
 msgid "Profile"
 msgstr "Profil"
 
-#: .\maskin\models.py:58
+#: .\maskin\models.py:57
 msgid "Profiles"
 msgstr "Profiler"
 
@@ -164,20 +172,9 @@ msgstr "svenska"
 msgid "english"
 msgstr "engelska"
 
-#: .\maskin\templates\aldryn_newsblog\article_detail.html:15
-msgid "Previous Article"
-msgstr "Föregående artikel"
-
-#: .\maskin\templates\aldryn_newsblog\article_detail.html:17
-msgid "Back to Overview"
-msgstr "Tillbaka till översikt"
-
-#: .\maskin\templates\aldryn_newsblog\article_detail.html:19
-msgid "Next Article"
-msgstr "Nästa artikel"
-
-#: .\maskin\templates\aldryn_newsblog\article_list.html:23
-#: .\maskin\templates\aldryn_newsblog\plugins\latest_articles.html:20
+#: .\maskin\templates\aldryn_newsblog\article_list.html:12
+#: .\maskin\templates\aldryn_newsblog\includes\search_results.html:12
+#: .\maskin\templates\aldryn_newsblog\plugins\latest_articles.html:11
 msgid "No items available"
 msgstr "Inga objekt är tillgängliga här för tillfället"
 
@@ -189,17 +186,54 @@ msgstr "Föregående"
 msgid "Next"
 msgstr "Nästa"
 
-#: .\maskin\templates\base.html:67
+#: .\maskin\templates\aldryn_newsblog\plugins\article_search.html:10
+msgid "Search for title"
+msgstr "Sök efter rubrik"
+
+#: .\maskin\templates\aldryn_newsblog\plugins\categories.html:7
+#: .\maskin\templates\aldryn_newsblog\plugins\categories.html:8
+msgid "All"
+msgstr "Alla"
+
+#: .\maskin\templates\base.html:58
+msgid "At Linköping university"
+msgstr "Vid Linköpings universitet"
+
+#: .\maskin\templates\base.html:84
+msgid "Log out"
+msgstr "Logga ut"
+
+#: .\maskin\templates\base.html:86
 msgid "Log in"
 msgstr "Logga in"
 
-#: .\maskin\templates\profile.html:11
+#: .\maskin\templates\checkin.html:5
+msgid "Check in"
+msgstr "Checka in"
+
+#: .\maskin\templates\checkin_search.html:17
+msgid "No users found."
+msgstr "Inga användare hittade"
+
+#: .\maskin\templates\profile.html:12
 msgid "You are registerd as a member for Maskinsektionen for this school year!"
 msgstr "Du är medlem i Maskinteknolgsektionen för det här läsåret!"
 
-#: .\maskin\templates\profile.html:15
+#: .\maskin\templates\profile.html:16
 msgid "You are not a member of Maskinsektionen for this school year."
 msgstr "Du är inte medlem i Maskinteknologsektionen för det här läsåret."
+
+#~ msgid "Year"
+#~ msgstr "År"
+
+#~ msgid "Previous Article"
+#~ msgstr "Föregående artikel"
+
+#~ msgid "Back to Overview"
+#~ msgstr "Tillbaka till översikt"
+
+#~ msgid "Next Article"
+#~ msgstr "Nästa artikel"
 
 #~ msgid "Swedish"
 #~ msgstr "Svenska"

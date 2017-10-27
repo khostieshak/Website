@@ -1,0 +1,27 @@
+@import "variables";
+.subnav{
+  margin-top: 30px;
+  padding: 0;
+  list-style-type: none;
+  a {
+    color: black;
+    text-decoration: none;
+    padding-left: 15px;
+  }
+  li{
+    padding: 10px 0 0;
+  }
+  li.active{
+    border-radius: 5px;
+    background-color: $main-red;
+    a{
+      color: $yellow;
+    }
+  }
+  ul{
+    list-style-type: none;
+  }
+  hr{
+    margin: 10px 0 0;
+  }
+}

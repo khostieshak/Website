@@ -43,10 +43,11 @@ class Profile(models.Model):
         ("DPU", _("Design and Product Development")),
         ("EMM", _("Energy-Environment-Management")),
         ("MASTER", _("Masterprogram")),
+        ("EX", _("Exchange student")),
         ("OTHER", _("Other"))
     )
     program = models.CharField(_("Program"), max_length=10, blank=True, choices=PROGRAM_CHOICES)
-    start_year = models.IntegerField(_("Start_year"), default=0)
+    start_year = models.IntegerField(_("Start year"), default=0)
     master = models.CharField(_("Master profile"), max_length=30, blank=True)
 
     def __str__(self):

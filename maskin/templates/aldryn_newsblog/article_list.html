@@ -1,13 +1,11 @@
-{% extends "aldryn_newsblog/base.html" %}
 {% load i18n thumbnail%}
 
 {% block newsblog_content %}
+    <div id="search-info"></div>
     {% for article in article_list %}
-        <div class="content">
-            <div class="row">
-                <div class="col-sm-12">
-                    {% include "aldryn_newsblog/includes/article.html" with detail_view="true" %}
-                </div>
+        <div class="row">
+            <div class="col-sm-12">
+                {% include "aldryn_newsblog/includes/article.html" with detail_view="true" %}
             </div>
         </div>
     {% empty %}

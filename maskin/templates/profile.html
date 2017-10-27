@@ -5,26 +5,28 @@
 {% block title %}{% trans 'Profile' %}: {{ user.username }}{% endblock title %}
 
 {% block content %}
-    <div class="content">
-        {% if member %}
-            <div class="alert alert-success" role="alert">
-                {% trans 'You are registerd as a member for Maskinsektionen for this school year!' %} {% trans 'School year' %} {{ school_year.name }}.
-            </div>
-        {% elif school_year.name %} {# Check that a current school year exists #}
-            <div class="alert alert-danger" role="alert">
-                {% trans 'You are not a member of Maskinsektionen for this school year.'%} {% trans 'School year' %} {{ school_year.name }}.
-            </div>
-        {% endif %}
-        <form method="post">
-            {% csrf_token %}
-            <table class="table">
-                {% if not member and school_year.name  %}{# Not member and a school year exists. #}
-                    {{ member_form.as_table }}
-                {% endif %}
-                {{ user_form.as_table }}
-                {{ profile_form.as_table }}
-            </table>
-            <button type="submit">{% trans 'Save changes'%}</button>
-        </form>
+    <div class="row">
+        <div class="col main-content">
+            {% if member %}
+                <div class="alert alert-success" role="alert">
+                    {% trans 'You are registerd as a member for Maskinsektionen for this school year!' %} {% trans 'School year' %} {{ school_year.name }}.
+                </div>
+            {% elif school_year.name %} {# Check that a current school year exists #}
+                <div class="alert alert-danger" role="alert">
+                    {% trans 'You are not a member of Maskinsektionen for this school year.'%} {% trans 'School year' %} {{ school_year.name }}.
+                </div>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <table class="table">
+                    {% if not member and school_year.name  %}{# Not member and a school year exists. #}
+                        {{ member_form.as_table }}
+                    {% endif %}
+                    {{ user_form.as_table }}
+                    {{ profile_form.as_table }}
+                </table>
+                <button type="submit" class="btn btn-maskin">{% trans 'Save changes'%}</button>
+            </form>
+        </div>
     </div>
 {% endblock content %}
