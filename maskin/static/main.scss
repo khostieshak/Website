@@ -3,12 +3,10 @@
 @import "scss/subnav";
 @import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
 
-p, a, h1, h2, h3, h4, h5{
-  font-family: $font;
-}
-
 body{
   background-color: $dark-red;
+  font-family: $font;
+  overflow-wrap: break-word;
 }
 
 .content{
@@ -30,6 +28,11 @@ body{
 .header, .footer{
   background-color: $main-red;
   padding: 3vh;
+  color: $yellow;
+  a{
+    color: $yellow;
+    text-decoration: none;
+  }
 }
 
 .header{
@@ -43,9 +46,13 @@ body{
     }
 
   }
-  img{
-    height: 94vh;
+  .header-img{
+    height: 60vh;
     width: auto;
+  }
+  .header-img-small{
+    height: 34vh;
+    max-width: 20vw;
   }
 }
 
@@ -94,4 +101,9 @@ body{
   color: $yellow;
   background-color: $main-red;
   border-color: $main-red;
+  &.active{
+    color: $main-red;
+    background-color: $yellow;
+    border-color: $yellow;
+  }
 }

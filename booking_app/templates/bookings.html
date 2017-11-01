@@ -15,16 +15,25 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="exampleModalLabel">{% trans 'Make booking' %}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     {% if user.is_authenticated %}
                         {% trans 'Do you want to book this?' %}
-                        <div><b>{% trans 'Start' %}:</b> <span id="id_start"></span></div>
-                        <div><b>{% trans 'End' %}:</b> <span id="id_end"></span></div>
-
-                        <button type="submit" id="savebooking" class="btn btn-primary">{% trans 'Make booking'%}</button>
+                        <div class="row">
+                            <div class="col"><b>{% trans 'Start' %}:</b> </div>
+                            <div class="col"><span id="id_start"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><b>{% trans 'End' %}:</b> </div>
+                            <div class="col"><span id="id_end"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><b>{% trans 'Committee' %} <span data-toggle="tooltip" title="{% trans 'Leave blank for private use.' %}"><i class="fa fa-info-circle" aria-hidden="true"></i></span></b> </div>
+                            <div class="col"><input type="text" class="form-control" id="committee"></div>
+                        </div>
+                        <button type="submit" id="savebooking" class="btn btn-maskin">{% trans 'Make booking'%}</button>
                     {% else %}
                         {% trans 'Login required to make bookings.' %}
                     {% endif %}
@@ -36,7 +45,7 @@
 
     <script type="text/javascript" src="{% static 'monthly.js' %}"></script>
     <script type="text/javascript">
-        $(window).load( function() {
+        $(window).on('load', function() {
             $('#mycalendar').monthly({
                 mode: 'event',
                 xmlUrl: 'bookings.xml',
@@ -60,6 +69,7 @@
                 data: {
                     'start': $('.modal-body #id_start').text(),
                     'end': $('.modal-body #id_end').text(),
+                    'committee': $('#committee').val(),
                },
                type: 'post',
                success: function (data) {

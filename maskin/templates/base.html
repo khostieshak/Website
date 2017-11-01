@@ -1,4 +1,5 @@
 {% load cms_tags menu_tags sekizai_tags %}
+{% load member_check %}
 {% load static from staticfiles %}
 {% load i18n %}
 <!doctype html>
@@ -46,7 +47,7 @@
     <body>
         {% cms_toolbar %}
             <div class="container-fluid header text-center d-none d-md-block">
-                <img id="header-img" src="{% static 'm-logo.svg' %}">
+                <img class="header-img" src="{% static 'm-logo.svg' %}">
                 <div class="container">
                     <div class="row">
                         <div class="col">
@@ -58,6 +59,18 @@
                                 <h1 class="display-5">{% trans 'At Linköping university' %}</h1>
                             </div>
                         </div -->
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <img class="header-img-small" src="{% static 'Logga_M.svg' %}">
+                        </div>
+                        <div class="col">
+                            <img class="header-img-small" src="{% static 'Logga_DPU.svg' %}">
+                        </div>
+                        <div class="col">
+                            <img class="header-img-small" src="{% static 'Logga_EMM.svg' %}">
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -73,18 +86,13 @@
                         {% show_menu 0 0 0 0 'menu.html'%}
                     </ul>
                     <ul class="navbar-nav">
-                        {% get_current_language as LANGUAGE_CODE %}
-                            {% if LANGUAGE_CODE == 'sv' %}
-                                <li class="nav-item"><a class="nav-link" href="/en#navbar">English <i class="fa fa-language fa-lg" aria-hidden="true"></i></a></li>
-                            {% else %}
-                                <li class="nav-item"><a class="nav-link" href="/sv#navbar">Svenska <i class="fa fa-language fa-lg" aria-hidden="true"></i></a></li>
-                            {% endif %}
-                            {% if user.is_authenticated %}
-                                <li class="nav-item"><a class="nav-link" href="/profile#navbar">{{ user.username }} <i class="fa fa-user fa-lg" aria-hidden="true"></i></a></li>
-                                <li class="nav-item"><a class="nav-link text-md-center" href="/accounts/logout"><i class="fa fa-sign-out" aria-hidden="true"></i><span>{% trans 'Log out' %} </span></a></li>
-                            {% else %}
-                                <li class="nav-item"><a class="nav-link" href="/accounts/login">{% trans 'Log in' %} <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i></a></li>
-                            {% endif %}
+                        {% language_chooser 'language_chooser.html' %}
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="/profile#navbar">{{ user.username }} <i class="fa fa-user fa-lg" aria-hidden="true"></i></a></li>
+                            <li class="nav-item"><a class="nav-link" href="/accounts/logout"><span>{% trans 'Log out' %} </span> <i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="/accounts/login">{% trans 'Log in' %} <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i></a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>
@@ -93,13 +101,63 @@
 
         </div>
         <div class="container-fluid footer">
-                {% static_placeholder "Footer" %}
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        {% static_placeholder "Footer" %}
+                    </div>
+                    <div class="col-sm-5">
+                        <img id="img-fluid" src="{% static 'm-logo.svg' %}">
+                    </div>
+                </div>
+            </div>
+
         </div>
+        {% if user.is_authenticated and not user|is_member and not request.session.no_member %}
+            <div class="modal fade" id="member-modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{% trans 'Become member' %}</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>{% trans 'You are not a member of the association. Want to become one?' %}</p>
+                            <button type="button" id="become-member" class="btn btn-maskin">{% trans 'Yes, sign me up!' %}</button>
+                            <button type="button" id="no-member" class="btn btn-secondary">{% trans 'No thanks.' %}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $(window).on('load', function () {
+                    $('#member-modal').modal('show');
+                });
+
+                $('#become-member').on('click', function () {
+                    $.ajax({
+                        url: '/{{ LANGUAGE_CODE }}/ajax/become_member',
+                        success: function () {
+                            $('#member-modal').modal('hide');
+                        }
+                    });
+                });
+                $('#no-member').on('click', function () {
+                    $.ajax({
+                        url: '/{{ LANGUAGE_CODE }}/ajax/no_member',
+                        success: function () {
+                            $('#member-modal').modal('hide');
+                        }
+                    });
+                });
+
+            </script>
+        {% endif %}
         {% render_block "js" %}
     </body>
 
 
     {% block javascript %}{% endblock javascript %}
+
     <script src="{% static 'maskin.js' %}"></script>
 
 </html>

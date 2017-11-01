@@ -13,5 +13,15 @@ class ProfileAdmin(admin.ModelAdmin):
     get_name.short_description = _('Name')  #Renames column head
 
 
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('name', 'location', 'start', 'end')
+
+
+class SignupAdmin(admin.ModelAdmin):
+    list_display = ('user', 'event', 'timestamp')
+
+
 admin.site.register(models.Profile, ProfileAdmin)
 admin.site.register(models.SchoolYear)
+admin.site.register(models.Event, EventAdmin)
+admin.site.register(models.Signup, SignupAdmin)

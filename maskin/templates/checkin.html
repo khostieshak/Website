@@ -5,41 +5,190 @@
 {% block title %}{% trans 'Check in' %}{% endblock title %}
 
 {% block content %}
-    <div class="content">
-        <form id="checkin_form">
-            <input type="text" id="checkin_field">
-        </form>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>LiuID</th>
-                    <th>Namn</th>
-                    <th>Medlem</th>
-                </tr>
-            </thead>
-            <tbody id="search_results">
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col main-content">
+            <div class="row">
+                <div class="col">
+                <div class="form-group">
+                    <select class="form-control" id="event-picker">
+                            <option data-id="0">-- {% trans 'Pick event' %} --</option>
+                            {% for event in events %}
+                                <option data-id="{{ event.id }}">{{ event.name }} {{ event.start|date:'Y-m-d H:i' }}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-maskin btn-input" data-target="#search"><i class="fa fa-search" aria-hidden="true"></i> {% trans 'Search' %}</button>
+                    <button class="btn btn-maskin btn-input" data-target="#blip"><i class="fa fa-credit-card" aria-hidden="true"></i> <i class="fa fa-rss" aria-hidden="true"></i> {% trans 'Blip' %}</button>
+                </div>
+                <div class="alert alert-danger collapse" role="alert" id="errormsg">
+                </div>
+                    <div class="collapse" id="search">
+                            <input class="form-control" type="text" id="search_field" placeholder="{% trans 'Search' %}">
+                        <div class="row">
+                            <div class="col" id="search_results">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse form-group" id="blip">
+                        <input class="form-control" type="text" id="blip_field" placeholder="{% trans 'Blip' %}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" id="signups">
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="modal fade" id="remove-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{% trans 'Remove sign up' %}</h5>
+                </div>
+                <div class="modal-body">
+                    <p>{% trans 'Do you want to delete the sign up for:' %} <b><span id="remove-user"></span></b> {% trans 'on event:' %} <b><span id="remove-event"></span></b>?</p>
+                    <button type="button" id="delete-signup" class="btn btn-maskin">{% trans "Yes, I'm sure." %}</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-secondary">{% trans 'No' %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock content %}
 
 {% block javascript %}
      <script>
-    $("#checkin_field").keyup(function () {
-        if(this.value.length > 2) {
+    $("#search_field").keyup(function () {
+        var eventid = $("#event-picker option:selected").data('id');
+        if(this.value.length > 2 && eventid!=0) {
             $.ajax({
                 url: '/{{ LANGUAGE_CODE }}/ajax/search',
-                data: {query: $(this).val()},
+                data: {
+                    'query': $(this).val(),
+                    'eventid': eventid,
+                },
                 datatype: 'html',
                 success: function (data) {
-                    $("#search_results").html(data)
+                    $("#search_results").html(data);
+                    $("#errormsg").hide();
                 }
             });
         }
     });
+    $("#blip_field").keyup(function (e) {
 
-    $('#checkin_form').submit(function () {
-        return false;
+        if(e.which == 13) { // Hit enter
+            $.ajax({
+                url: '/{{ LANGUAGE_CODE }}/ajax/blip',
+                data: {
+                    'query': $(this).val(),
+                    'eventid': $("#event-picker option:selected").data('id'),
+                },
+                datatype: 'html',
+                success: function (data) {
+                    $("#signups").html(data);
+                    $("#errormsg").hide();
+                    $("#blip_field").val("");
+                },
+                error: function (data) {
+                    $("#errormsg").text(data.responseJSON.msg);
+                    $("#errormsg").show();
+                    $("#blip_field").val("");
+                }
+            });
+        }
+    });
+    $(".btn-input").on('click', function () {
+        $(".btn-input").removeClass('active');
+        $(this).addClass('active');
+        var target=$(this).data('target');
+        $(target+" > input").val("");
+        $(target).show();
+        $(".collapse:not("+target+")").hide();
+    });
+
+    $("#event-picker").on('change', function () {
+        var id=$("#event-picker option:selected").data('id');
+        if(id==0){
+            $("#signups").hide();
+        }else{
+            $.ajax({
+            url: '/{{ LANGUAGE_CODE }}/ajax/signups',
+            data: {'eventid': id},
+            datatype: 'html',
+                success: function (data) {
+                    $("#signups").html(data);
+                    $("#signups").show();
+                    $("#errormsg").hide();
+                }
+            });
+        }
+
+    });
+
+    $('.content').on('click', '.member-btn', function () {
+        var liuid=$(this).data('liuid');
+        var eventid=$("#event-picker option:selected").data('id');
+        $.ajax({
+            url: '/{{ LANGUAGE_CODE }}/ajax/add_member',
+            data: {
+                'liuid': liuid,
+                'eventid': eventid,
+            },
+            datatype: 'html',
+                success: function (data) {
+                    $("#signups").html(data);
+                    $("#errormsg").hide();
+                }
+        });
+    });
+
+    $('.content').on('click', '.checkin-btn', function () {
+        var liuid=$(this).data('liuid');
+        var eventid=$("#event-picker option:selected").data('id');
+        $.ajax({
+            url: '/{{ LANGUAGE_CODE }}/ajax/checkin',
+            data: {
+                'liuid': liuid,
+                'eventid': eventid,
+            },
+            datatype: 'html',
+                success: function (data) {
+                    $("#signups").html(data);
+                    $("#errormsg").hide();
+                }
+        });
+    });
+
+    $('.content').on('click', '.remove-btn', function () {
+        var liuid=$(this).data('liuid');
+        var eventname=$("#event-picker option:selected").val();
+        $("#remove-user").text(liuid);
+        $("#delete-signup").data('liuid', liuid);
+        $("#remove-event").text(eventname);
+        $("#remove-modal").modal('show');
+    });
+
+    $("#delete-signup").on('click', function () {
+        var liuid=$(this).data('liuid');
+        var eventid=$("#event-picker option:selected").data('id');
+        $.ajax({
+            url: '/{{ LANGUAGE_CODE }}/ajax/delete_signup',
+            data: {
+                'liuid': liuid,
+                'eventid': eventid,
+            },
+            datatype: 'html',
+                success: function (data) {
+                    $("#signups").html(data);
+                    $("#remove-modal").modal('hide');
+                    $("#errormsg").hide();
+                }
+        });
     });
   </script>
 {% endblock javascript %}

@@ -80,7 +80,11 @@ class book(AppConfigMixin, TemplateView):
 
                 if free and a_booking_spot:
                     made_by = self.request.user
-                    name = self.request.user.first_name + ' ' + self.request.user.last_name
+                    name = ""
+                    if request.POST.has_key('committee'):
+                        name = request.POST['committee']
+                    if not name or name.isspace():
+                        name = self.request.user.first_name + ' ' + self.request.user.last_name
                     if name.isspace():
                         name = made_by
                     Booking.objects.add_booking(app_config, name, made_by, start, end)

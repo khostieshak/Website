@@ -1,11 +1,9 @@
 var windowWidth=$(window).outerWidth();
 var windowHeight=$(window).height();
-//$("#header-img").height(windowHeight-30);
 
 $(window).resize(function() {
     windowWidth=$(window).outerWidth();
     windowHeight=$(window).height()
-    //$("#header-img").height(windowHeight-30);
 });
 
 $(function () {
@@ -32,3 +30,6 @@ $('.content').on('click', '.article-link', function (event) {
         }
     });
 });
+
+
+$('[data-toggle="tooltip"]').tooltip();

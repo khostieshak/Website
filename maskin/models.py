@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from datetime import date
-from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 
 class SchoolYearManager(models.Manager):
@@ -67,3 +67,28 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+
+class Event(models.Model):
+    name = models.CharField(verbose_name=_('name'), max_length=30, unique=True)
+    location = models.CharField(verbose_name=_('location'), max_length=30)
+    start = models.DateTimeField(verbose_name=_('start'))
+    end = models.DateTimeField(verbose_name=_('end'))
+
+    def __str__(self):
+        return self.name.encode('utf-8')
+
+    class Meta:
+        verbose_name = _("Event")
+        verbose_name_plural = _("Events")
+
+class Signup(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(verbose_name=_('timestamp'))
+
+    class Meta:
+        verbose_name = _("Sign up")
+        verbose_name_plural = _("Sign ups")
+        ordering = ['-timestamp']
+        unique_together = (('user', 'event'),)

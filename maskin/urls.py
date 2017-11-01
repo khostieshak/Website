@@ -30,6 +30,13 @@ urlpatterns += i18n_patterns(
     url(r'^profile',views.update_profile, name='profile'),
     url(r'^checkin', views.checkin, name='checkin'),
     url(r'^ajax/search', views.ajax_search, name='ajax_search'),
+    url(r'^ajax/blip', views.ajax_blip, name='ajax_blip'),
+    url(r'^ajax/become_member', views.ajax_become_member, name='ajax_become_member'),
+    url(r'^ajax/add_member', views.ajax_add_member, name='ajax_add_member'),
+    url(r'^ajax/no_member', views.ajax_no_member, name='ajax_no_member'),
+    url(r'^ajax/signups', views.ajax_signups, name='ajax_signups'),
+    url(r'^ajax/checkin', views.ajax_checkin, name='ajax_checkin'),
+    url(r'^ajax/delete_signup', views.ajax_delete_signup, name='ajax_delete_signup'),
 )
 
 # This is only needed when using runserver.

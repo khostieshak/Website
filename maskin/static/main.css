@@ -47,11 +47,10 @@
   .subnav hr {
     margin: 10px 0 0; }
 
-p, a, h1, h2, h3, h4, h5 {
-  font-family: Helvetica, sans-serif; }
-
 body {
-  background-color: #8F000A; }
+  background-color: #8F000A;
+  font-family: Helvetica, sans-serif;
+  overflow-wrap: break-word; }
 
 .content {
   background-color: white; }
@@ -68,7 +67,11 @@ body {
 
 .header, .footer {
   background-color: #B9000A;
-  padding: 3vh; }
+  padding: 3vh;
+  color: #FFE500; }
+  .header a, .footer a {
+    color: #FFE500;
+    text-decoration: none; }
 
 .header .jumbotron {
   color: #FFE500;
@@ -77,9 +80,12 @@ body {
   padding: 0; }
   .header .jumbotron h1 {
     font-family: 'Permanent Marker', cursive; }
-.header img {
-  height: 94vh;
+.header .header-img {
+  height: 60vh;
   width: auto; }
+.header .header-img-small {
+  height: 34vh;
+  max-width: 20vw; }
 
 .navbar-custom {
   background-color: #B9000A;
@@ -113,5 +119,9 @@ body {
   color: #FFE500;
   background-color: #B9000A;
   border-color: #B9000A; }
+  .btn-maskin.active {
+    color: #B9000A;
+    background-color: #FFE500;
+    border-color: #FFE500; }
 
 /*# sourceMappingURL=main.css.map */
