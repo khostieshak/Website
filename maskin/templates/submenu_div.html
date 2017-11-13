@@ -1,8 +1,7 @@
 {% load cms_tags menu_tags %}
-<div class="row">
     {% comment %} If the current page have a child or a parent then show submenu. {% endcomment %}
     {% if current_page.numchild > 0 or current_page.parent %}
-        <div class="col-md-4 ">
+        <div class="col-md-3 subdiv">
         <ul class="subnav">
             {% show_sub_menu 100 1 0 "submenu.html" %}
         </ul>
@@ -11,6 +10,3 @@
         <div class="col main-content">
             {% placeholder "content" %}
         </div>
-
-
-</div>

@@ -10,7 +10,7 @@
 .category-badge {
   margin-left: 5px; }
 
-.article-title a {
+a .article-title, a:hover {
   color: black;
   text-decoration: none; }
 
@@ -47,23 +47,32 @@
   .subnav hr {
     margin: 10px 0 0; }
 
+.subdiv {
+  background-color: white;
+  margin-right: 30px;
+  box-shadow: -5px 0px 5px rgba(0, 0, 0, 0.25); }
+
 body {
-  background-color: #8F000A;
-  font-family: Helvetica, sans-serif;
+  background-color: #fafafa;
+  font-family: Century Schoolbook;
   overflow-wrap: break-word; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Helvetica, sans-serif; }
 
 .content {
   background-color: white; }
 
 .main-content {
-  border-left: 2px solid #530009;
-  border-right: 2px solid #530009;
+  box-shadow: -5px 0px 5px rgba(0, 0, 0, 0.25);
   padding-top: 30px;
-  padding-bottom: 30px; }
+  padding-bottom: 30px;
+  background-color: white; }
 
 .sidebar {
-  border-left: 2px solid #530009;
-  border-right: 2px solid #530009; }
+  margin: 0 30px;
+  background-color: white;
+  box-shadow: -5px 0px 5px rgba(0, 0, 0, 0.25); }
 
 .header, .footer {
   background-color: #B9000A;
@@ -73,26 +82,52 @@ body {
     color: #FFE500;
     text-decoration: none; }
 
-.header .jumbotron {
-  color: #FFE500;
-  background-color: #B9000A;
-  margin: 0;
-  padding: 0; }
-  .header .jumbotron h1 {
-    font-family: 'Permanent Marker', cursive; }
-.header .header-img {
-  height: 60vh;
-  width: auto; }
-.header .header-img-small {
-  height: 34vh;
-  max-width: 20vw; }
+.footer {
+  margin-top: 0px;
+  background: #8F000A;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#8F000A, #B9000A);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#8F000A, #B9000A);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#8F000A, #B9000A);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#8F000A, #B9000A);
+  /* Standard syntax */ }
+
+.header {
+  background: #8F000A;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#B9000A, #8F000A);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#B9000A, #8F000A);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#B9000A, #8F000A);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#B9000A, #8F000A);
+  /* Standard syntax */
+  position: relative;
+  height: 30vh; }
+  .header .header-img {
+    height: 30vh;
+    width: auto; }
+  .header a {
+    width: 96vw;
+    text-align: center;
+    position: absolute;
+    bottom: 0px; }
+  .header .header-img-div {
+    position: relative;
+    vertical-align: bottom;
+    width: 30vh; }
+  .header .header-img {
+    padding-top: 10px; }
 
 .navbar-custom {
-  background-color: #B9000A;
+  background-color: #8F000A;
   padding-top: 0;
   padding-bottom: 0;
-  border-top: 2px solid #530009;
-  border-bottom: 2px solid #530009; }
+  font-family: Helvetica, sans-serif; }
   .navbar-custom button i {
     color: #FFE500; }
   .navbar-custom button:focus {
@@ -106,14 +141,16 @@ body {
       display: inline-block;
       vertical-align: middle;
       line-height: normal; }
-    .navbar-custom li.active {
-      background-color: #FFE500; }
-      .navbar-custom li.active a {
-        color: #B9000A; }
+    .navbar-custom li.active, .navbar-custom li:hover {
+      border-bottom: 5px solid #FFE500; }
 
 .img-responsive {
   max-width: 100%;
   height: auto; }
+
+.img-responsive-height {
+  height: 100%;
+  width: auto; }
 
 .btn-maskin {
   color: #FFE500;

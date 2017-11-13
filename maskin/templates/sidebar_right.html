@@ -5,9 +5,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-md-10">
-            {% include "submenu_div.html" %}
-        </div>
+        {% include "submenu_div.html" %}
         <div class="col-md-2 sidebar">
             {% static_placeholder "Static sidebar" %}
             {% placeholder "Dynamic sidebar" %}

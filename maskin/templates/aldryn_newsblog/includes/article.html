@@ -10,9 +10,11 @@
             <img class="img-responsive img-article" src="{% thumbnail article.featured_image 800x450 crop subject_location=article.featured_image.subject_location %}" alt="{{ article.featured_image.alt }}">
         </p>
     {% endif %}
-        <h3 class="article-title">
-            {% render_model article "title" %}
-        </h3>
+        <a href="{% namespace_url 'article-detail' article.slug namespace=namespace default='' %}">
+            <h3 class="article-title">
+                {% render_model article "title" %}
+            </h3>
+        </a>
         <p class="article-info">
             <i class="fa fa-calendar" aria-hidden="true"></i> <span>{{ article.publishing_date|date }}</span>
             <i class="fa fa-pencil" aria-hidden="true"></i> <span>{% include "aldryn_newsblog/includes/author.html" with author=article.author %}</span>

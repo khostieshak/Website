@@ -91,10 +91,10 @@ def ajax_blip(request):
                 resp = urllib2.urlopen(req)
                 content = resp.read()
                 student = json.loads(content)
-                names = student['name'].split()
-                last_name = ' '.join(map(str, names[1:]))  # in case of several last names
                 user, created = User.objects.get_or_create(username=student['liu_id'])
                 if created:
+                    names = student['name'].encode('utf-8').split()
+                    last_name = ' '.join(map(str, names[1:]))  # in case of several last names
                     user.first_name = names[0]
                     user.last_name = last_name
                     user.email = student['email']

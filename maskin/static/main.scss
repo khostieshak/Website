@@ -4,9 +4,12 @@
 @import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
 
 body{
-  background-color: $dark-red;
+  background-color: rgb(250, 250, 250);
   font-family: $font;
   overflow-wrap: break-word;
+}
+h1, h2, h3, h4, h5, h6{
+  font-family: $header-font;
 }
 
 .content{
@@ -14,15 +17,17 @@ body{
 }
 
 .main-content{
-  border-left: 2px solid $shadow-red;
-  border-right: 2px solid $shadow-red;
+  box-shadow: $shadow;
   padding-top: $margin-top;
   padding-bottom: $margin-top;
+  background-color: white;
+
 }
 
 .sidebar{
-      border-left: 2px solid $shadow-red;
-      border-right: 2px solid $shadow-red;
+  margin: 0 30px;
+  background-color: white;
+  box-shadow: $shadow;
   }
 
 .header, .footer{
@@ -35,33 +40,51 @@ body{
   }
 }
 
-.header{
-  .jumbotron{
-    color:$yellow;
-    background-color: $main-red;
-    margin:0;
-    padding: 0;
-    h1{
-      font-family: 'Permanent Marker', cursive;
-    }
+.footer{
+  margin-top: 0px;
+  background: $dark-red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient($dark-red, $main-red); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient($dark-red, $main-red); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient($dark-red, $main-red); /* For Firefox 3.6 to 15 */
+  background: linear-gradient($dark-red, $main-red); /* Standard syntax */
+}
 
-  }
+.header{
+  background: $dark-red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient($main-red, $dark-red); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient($main-red, $dark-red); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient($main-red, $dark-red); /* For Firefox 3.6 to 15 */
+  background: linear-gradient($main-red, $dark-red); /* Standard syntax */
+  position: relative;
+  height: 30vh;
+
   .header-img{
-    height: 60vh;
+    height: 30vh;
     width: auto;
   }
-  .header-img-small{
-    height: 34vh;
-    max-width: 20vw;
+
+  a{
+    width: 96vw;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+  }
+  .header-img-div{
+    position: relative;
+    vertical-align: bottom;
+    width: 30vh;
+  }
+
+  .header-img{
+    padding-top: 10px;
   }
 }
 
 .navbar-custom{
-  background-color: $main-red;
+  background-color: $dark-red;
   padding-top: 0;
   padding-bottom: 0;
-  border-top: 2px solid $shadow-red;
-  border-bottom: 2px solid $shadow-red;
+  font-family: $header-font;
   button{
     i {
       color: $yellow;
@@ -81,11 +104,8 @@ body{
       line-height: normal;
     }
 
-    &.active{
-      background-color: $yellow;
-      a{
-        color:$main-red;
-      }
+    &.active, &:hover{
+      border-bottom: 5px solid $yellow;
     }
   }
 }
@@ -95,6 +115,11 @@ body{
 .img-responsive{
     max-width: 100%;
     height: auto;
+}
+
+.img-responsive-height{
+  height: 100%;
+  width: auto;
 }
 
 .btn-maskin{

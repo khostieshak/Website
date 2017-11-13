@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% block newsblog_content %}
-        {# article_list.html and article_detail.html extend this template #}
-    {% endblock %}
+    <div class="row">
+        <div class="col main-content">
+            {% block newsblog_content %}
+            {# article_list.html and article_detail.html extend this template #}
+            {% endblock %}
+        </div>
+    </div>
+
 {% endblock content %}
