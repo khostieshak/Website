@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static "advent_calendar.css" %}">
+    <div class="calendar">
+        <img class="calendar-img" src="{{ view.config.background.url }}" />
+        <div class="blocks">
+            {% for calendarday in object_list %}
+                <a href="#" data-target="#modal" data-toggle="modal" data-day="{{ calendarday.day|date:"j F" }}"
+                   {% if calendarday.publish %}data-id="#content{{ calendarday.id }}"{% else %} data-id="#not-published"{% endif %} >
+                    <div class="calendar-box">
+                        <span class="align-middle">{{ calendarday.day|date:"j" }}</span>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="d-none" id="not-published">
+        {% placeholder "content" %}
+    </div>
+    {% for calendarday in object_list|dictsort:"day" %}
+        {% if calendarday.publish %}
+            <div class="d-none" id="content{{ calendarday.id }}">
+                    {% render_placeholder calendarday.placeholder %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+<script>
+$('#modal').on('show.bs.modal', function (event) {
+    var id = $(event.relatedTarget).data('id');
+    console.log(id);
+    var title = $(event.relatedTarget).data('day');
+    var content =$(id).html();
+    var modal = $(this);
+    modal.find('.modal-title').text(title);
+    modal.find('.modal-body').html(content);
+})
+
+</script>
+{% endblock javascript %}
+
+
+

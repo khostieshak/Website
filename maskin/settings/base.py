@@ -139,6 +139,8 @@ INSTALLED_APPS = (
     'reversion',
     # Booking app
     'booking_app',
+    # Advent calendar
+    'advent_calendar',
     'storages',
 )
 
@@ -206,7 +208,7 @@ AUTHENTICATION_BACKENDS = (
     'django_cas_ng.backends.CASBackend',
 )
 
-CAS_SERVER_URL = 'https://login.liu.se/cas/login'
+CAS_SERVER_URL = 'https://login.it.liu.se/idp/profile/cas/login'
 LOGIN_URL = '/accounts/login'
 CAS_FORCE_CHANGE_USERNAME_CASE = 'lower'
 

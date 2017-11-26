@@ -1,0 +1,36 @@
+.calendar{
+    position: relative;
+}
+
+.blocks{
+    position: absolute;
+    top: 5%;
+    left: 2vw;
+    right: 2vw;
+    bottom: 5%;
+}
+
+.calendar-img{
+    width: 100%;
+    height: auto!important;
+}
+
+.calendar-box{
+    float: left;
+    border: rgba(255, 255, 255, 0.6) solid 2px;
+    border-radius: 10px;
+    margin: 2.5%;
+    width: 20%;
+    height: 10%;
+    text-align: center;
+}
+
+.calendar-box:hover{
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.calendar-box span{
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 4vw;
+}
+

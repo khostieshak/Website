@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-01 10:55+0100\n"
-"PO-Revision-Date: 2017-11-01 10:57+0100\n"
+"POT-Creation-Date: 2017-11-26 22:57+0100\n"
+"PO-Revision-Date: 2017-11-26 23:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,17 +18,54 @@ msgstr ""
 "Language: sv\n"
 "X-Generator: Poedit 2.0.4\n"
 
+#: .\advent_calendar\cms_appconfig.py:7
+msgid "start date"
+msgstr "start datum"
+
+#: .\advent_calendar\cms_appconfig.py:8
+msgid "publish time"
+msgstr "publicerings tid"
+
+#: .\advent_calendar\cms_appconfig.py:9
+msgid "background image"
+msgstr "bakgrundsbild"
+
+#: .\advent_calendar\cms_appconfig.py:12 .\advent_calendar\cms_apps.py:8
+#: .\advent_calendar\models.py:13 .\advent_calendar\models.py:23
+msgid "Advent calendar"
+msgstr "Julkalender"
+
+#: .\advent_calendar\cms_appconfig.py:13
+msgid "Advent calendars"
+msgstr "Julkalendrar"
+
+#: .\advent_calendar\models.py:17
+msgid "calendar"
+msgstr "kalender"
+
+#: .\advent_calendar\models.py:18
+msgid "date"
+msgstr "datum"
+
+#: .\advent_calendar\models.py:20
+msgid "display order"
+msgstr "visningsordning"
+
 #: .\booking_app\cms_apps.py:8
 msgid "Booking App"
 msgstr "Boknings app"
 
-#: .\booking_app\models.py:21 .\booking_app\models.py:40 .\maskin\models.py:21
-#: .\maskin\models.py:75
+#: .\booking_app\forms.py:11
+msgid "Committee or name (for private use)"
+msgstr "Utskott/kommitté/förening eller namn (för privat bruk)"
+
+#: .\booking_app\models.py:21 .\booking_app\models.py:44 .\maskin\models.py:20
+#: .\maskin\models.py:74
 msgid "start"
 msgstr "start"
 
-#: .\booking_app\models.py:22 .\booking_app\models.py:41 .\maskin\models.py:22
-#: .\maskin\models.py:76
+#: .\booking_app\models.py:22 .\booking_app\models.py:45 .\maskin\models.py:21
+#: .\maskin\models.py:75
 msgid "end"
 msgstr "slut"
 
@@ -40,23 +77,27 @@ msgstr "Bokningstillfälle"
 msgid "Booking spots"
 msgstr "Bokningstillfällen"
 
-#: .\booking_app\models.py:36
-msgid "app config"
-msgstr "app konfiguration"
+#: .\booking_app\models.py:35 .\booking_app\models.py:40
+msgid "Booking object"
+msgstr "Bokningsobjekt"
 
-#: .\booking_app\models.py:37 .\maskin\models.py:19 .\maskin\models.py:73
+#: .\booking_app\models.py:36
+msgid "Booking objects"
+msgstr "Bokningsobjekt"
+
+#: .\booking_app\models.py:41 .\maskin\models.py:18 .\maskin\models.py:72
 msgid "name"
 msgstr "namn"
 
-#: .\booking_app\models.py:39
+#: .\booking_app\models.py:43
 msgid "made by"
 msgstr "skapad av"
 
-#: .\booking_app\models.py:49
+#: .\booking_app\models.py:53
 msgid "Booking"
 msgstr "Bokning"
 
-#: .\booking_app\models.py:50
+#: .\booking_app\models.py:54
 msgid "Bookings"
 msgstr "Bokningar"
 
@@ -64,40 +105,48 @@ msgstr "Bokningar"
 msgid "Save changes"
 msgstr "Spara ändringar"
 
+#: .\booking_app\templates\bookings.html:14
+msgid "Your upcoming bookings"
+msgstr "Dina kommande bokningar"
+
 #: .\booking_app\templates\bookings.html:18
-#: .\booking_app\templates\bookings.html:36
+msgid "Remove booking"
+msgstr "Ta bort bokning"
+
+#: .\booking_app\templates\bookings.html:33
+#: .\booking_app\templates\bookings.html:60
 msgid "Make booking"
 msgstr "Gör bokning"
 
-#: .\booking_app\templates\bookings.html:23
+#: .\booking_app\templates\bookings.html:38
 msgid "Do you want to book this?"
 msgstr "Vill du boka det här?"
 
-#: .\booking_app\templates\bookings.html:25
+#: .\booking_app\templates\bookings.html:40
+#: .\booking_app\templates\bookings.html:80
 msgid "Start"
 msgstr "Start"
 
-#: .\booking_app\templates\bookings.html:29
+#: .\booking_app\templates\bookings.html:44
+#: .\booking_app\templates\bookings.html:84
 msgid "End"
 msgstr "Slut"
 
-#: .\booking_app\templates\bookings.html:33
-msgid "Committee"
-msgstr "Utskott/Kommitté/Bifirma"
-
-#: .\booking_app\templates\bookings.html:33
-msgid "Leave blank for private use."
-msgstr "Lämna tomt för privat bruk."
-
-#: .\booking_app\templates\bookings.html:38
+#: .\booking_app\templates\bookings.html:63
+#: .\booking_app\templates\bookings.html:95
 msgid "Login required to make bookings."
 msgstr "Inloggning krävs för att göra bokningar."
 
-#: .\booking_app\templates\bookings.html:80
-msgid "Something went wrong"
-msgstr "Någonting gick fel"
+#: .\booking_app\templates\bookings.html:73
+#: .\booking_app\templates\bookings.html:92
+msgid "Delete booking"
+msgstr "Ta bort bokning"
 
-#: .\booking_app\views.py:35
+#: .\booking_app\templates\bookings.html:78
+msgid "Are you sure you want to delete this booking?"
+msgstr "Är du säker på att du vill ta bort bokningen?"
+
+#: .\booking_app\views.py:36
 msgid "Free"
 msgstr "Ledig"
 
@@ -106,7 +155,7 @@ msgstr "Ledig"
 msgid "Name"
 msgstr "Namn"
 
-#: .\maskin\forms.py:9 .\maskin\templates\base.html:121
+#: .\maskin\forms.py:9 .\maskin\templates\base.html:122
 #: .\maskin\templates\signups.html:26
 msgid "Become member"
 msgstr "Bli medlem"
@@ -115,116 +164,109 @@ msgstr "Bli medlem"
 msgid "Want to become a member?"
 msgstr "Vill du bli medlem?"
 
-#: .\maskin\models.py:20
+#: .\maskin\models.py:19
 msgid "Member group"
 msgstr "Medlemsgrupp"
 
-#: .\maskin\models.py:33 .\maskin\templates\profile.html:13
+#: .\maskin\models.py:32 .\maskin\templates\profile.html:13
 #: .\maskin\templates\profile.html:17
 msgid "School year"
 msgstr "Läsår"
 
-#: .\maskin\models.py:34
+#: .\maskin\models.py:33
 msgid "School years"
 msgstr "Läsår"
 
-#: .\maskin\models.py:39
+#: .\maskin\models.py:38
 msgid "Member years"
 msgstr "Läsår"
 
-#: .\maskin\models.py:40
+#: .\maskin\models.py:39
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: .\maskin\models.py:42
+#: .\maskin\models.py:41
 msgid "Mechanical engingering"
 msgstr "Maskinteknik"
 
-#: .\maskin\models.py:43
+#: .\maskin\models.py:42
 msgid "Design and Product Development"
 msgstr "Design och produktutveckling"
 
-#: .\maskin\models.py:44
+#: .\maskin\models.py:43
 msgid "Energy-Environment-Management"
 msgstr "Energi - miljö - management"
 
-#: .\maskin\models.py:45
+#: .\maskin\models.py:44
 msgid "Masterprogram"
 msgstr "Masterprogram"
 
-#: .\maskin\models.py:46
+#: .\maskin\models.py:45
 msgid "Exchange student"
 msgstr "Utbytesstudent"
 
-#: .\maskin\models.py:47
+#: .\maskin\models.py:46
 msgid "Other"
 msgstr "Annat"
 
-#: .\maskin\models.py:49
+#: .\maskin\models.py:48
 msgid "Program"
 msgstr "Program"
 
-#: .\maskin\models.py:50
+#: .\maskin\models.py:49
 msgid "Start year"
 msgstr "Startår"
 
-#: .\maskin\models.py:51
+#: .\maskin\models.py:50
 msgid "Master profile"
 msgstr "Masterprofil"
 
-#: .\maskin\models.py:57 .\maskin\templates\profile.html:6
+#: .\maskin\models.py:56 .\maskin\templates\profile.html:6
 msgid "Profile"
 msgstr "Profil"
 
-#: .\maskin\models.py:58
+#: .\maskin\models.py:57
 msgid "Profiles"
 msgstr "Profiler"
 
-#: .\maskin\models.py:74
+#: .\maskin\models.py:73
 msgid "location"
 msgstr "plats"
 
-#: .\maskin\models.py:82
+#: .\maskin\models.py:81
 msgid "Event"
 msgstr "Event"
 
-#: .\maskin\models.py:83
+#: .\maskin\models.py:82
 msgid "Events"
 msgstr "Events"
 
-#: .\maskin\models.py:88
+#: .\maskin\models.py:87
 msgid "timestamp"
 msgstr "tidsstämpel"
 
-#: .\maskin\models.py:91
+#: .\maskin\models.py:90
 msgid "Sign up"
 msgstr "Registrering"
 
-#: .\maskin\models.py:92
+#: .\maskin\models.py:91
 msgid "Sign ups"
 msgstr "Registreringar"
 
-#: .\maskin\settings\base.py:147
+#: .\maskin\settings\base.py:149
 msgid "swedish"
 msgstr "svenska"
 
-#: .\maskin\settings\base.py:148
+#: .\maskin\settings\base.py:150
 msgid "english"
 msgstr "engelska"
 
 #: .\maskin\templates\aldryn_newsblog\article_list.html:12
 #: .\maskin\templates\aldryn_newsblog\includes\search_results.html:12
+#: .\maskin\templates\aldryn_newsblog\plugins\archive.html:21
 #: .\maskin\templates\aldryn_newsblog\plugins\latest_articles.html:11
 msgid "No items available"
 msgstr "Inga objekt är tillgängliga här för tillfället"
-
-#: .\maskin\templates\aldryn_newsblog\includes\pagination.html:9
-msgid "Previous"
-msgstr "Föregående"
-
-#: .\maskin\templates\aldryn_newsblog\includes\pagination.html:43
-msgid "Next"
-msgstr "Nästa"
 
 #: .\maskin\templates\aldryn_newsblog\plugins\article_search.html:10
 msgid "Search for title"
@@ -235,7 +277,7 @@ msgstr "Sök efter rubrik"
 msgid "All"
 msgstr "Alla"
 
-#: .\maskin\templates\base.html:59
+#: .\maskin\templates\base.html:61
 msgid "At Linköping university"
 msgstr "Vid Linköpings universitet"
 
@@ -247,15 +289,15 @@ msgstr "Logga ut"
 msgid "Log in"
 msgstr "Logga in"
 
-#: .\maskin\templates\base.html:124
+#: .\maskin\templates\base.html:125
 msgid "You are not a member of the association. Want to become one?"
 msgstr "Du är inte medlem i sektionen för det här läsåret. Vill du bli det?"
 
-#: .\maskin\templates\base.html:125
+#: .\maskin\templates\base.html:126
 msgid "Yes, sign me up!"
 msgstr "Ja, registrera mig!"
 
-#: .\maskin\templates\base.html:126
+#: .\maskin\templates\base.html:127
 msgid "No thanks."
 msgstr "Nej tack."
 
@@ -263,35 +305,35 @@ msgstr "Nej tack."
 msgid "Check in"
 msgstr "Checka in"
 
-#: .\maskin\templates\checkin.html:14
+#: .\maskin\templates\checkin.html:17
 msgid "Pick event"
 msgstr "Välj event"
 
-#: .\maskin\templates\checkin.html:21 .\maskin\templates\checkin.html:27
+#: .\maskin\templates\checkin.html:24 .\maskin\templates\checkin.html:30
 msgid "Search"
 msgstr "Sök"
 
-#: .\maskin\templates\checkin.html:22 .\maskin\templates\checkin.html:34
+#: .\maskin\templates\checkin.html:25 .\maskin\templates\checkin.html:37
 msgid "Blip"
 msgstr "Blippa"
 
-#: .\maskin\templates\checkin.html:50
+#: .\maskin\templates\checkin.html:53
 msgid "Remove sign up"
 msgstr "Ta bort registrering"
 
-#: .\maskin\templates\checkin.html:53
+#: .\maskin\templates\checkin.html:56
 msgid "Do you want to delete the sign up for:"
 msgstr "Vill du ta bort registrering för:"
 
-#: .\maskin\templates\checkin.html:53
+#: .\maskin\templates\checkin.html:56
 msgid "on event:"
 msgstr "på event:"
 
-#: .\maskin\templates\checkin.html:54
+#: .\maskin\templates\checkin.html:57
 msgid "Yes, I'm sure."
 msgstr "Ja, jag är säker."
 
-#: .\maskin\templates\checkin.html:55
+#: .\maskin\templates\checkin.html:58
 msgid "No"
 msgstr "Nej"
 
@@ -354,6 +396,21 @@ msgstr "Ingen student med kortnummer:"
 #: .\maskin\views.py:112
 msgid "Already checked in to this event."
 msgstr "Redan incheckad på detta event."
+
+#~ msgid "app config"
+#~ msgstr "app konfiguration"
+
+#~ msgid "Committee"
+#~ msgstr "Utskott/Kommitté/Bifirma"
+
+#~ msgid "Something went wrong"
+#~ msgstr "Någonting gick fel"
+
+#~ msgid "Previous"
+#~ msgstr "Föregående"
+
+#~ msgid "Next"
+#~ msgstr "Nästa"
 
 #~ msgid "Previous Article"
 #~ msgstr "Föregående artikel"

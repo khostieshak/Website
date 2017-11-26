@@ -12,12 +12,28 @@ class MemberForm(Form):
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name')
+        fields = ('first_name', 'last_name', 'email')
         widgets={
             'first_name': TextInput(attrs={'class': 'form-control'}),
-            'last_name': TextInput(attrs={'class': 'form-control'})
+            'last_name': TextInput(attrs={'class': 'form-control'}),
+            'email': TextInput(attrs={'class': 'form-control'})
         }
 
+class EmailForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ('email',)
+        widgets = {
+            'email': TextInput(attrs={'class': 'form-control'})
+        }
+
+class PhoneForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('phone',)
+        widgets = {
+            'phone': TextInput(attrs={'class': 'form-control'})
+        }
 
 class ProfileForm(ModelForm):
     class Meta:

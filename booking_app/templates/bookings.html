@@ -7,15 +7,31 @@
 
 {% block content %}
     <link rel="stylesheet" href="{% static "monthly.css" %}">
-    {% placeholder "content" %}
-    <div class="content">
-        <div class="monthly" id="mycalendar"></div>
+
+    <div class="row">
+        <div class="col main-content">
+            {% placeholder "content" %}
+            {% if my_bookings %}
+                <h3>{% trans 'Your upcoming bookings' %}</h3>
+                <ul class="subnav">
+                    {% for booking in my_bookings %}
+                    <li>{{ booking.name }} {{ booking.start|date:"Y-m-d H:i" }}-{{ booking.end|date:"H:i" }}
+                        <button class="btn btn-maskin deletebtn" data-toggle="modal" data-target="#DeleteModal" data-start="{{ booking.start }}" data-end="{{ booking.end }}" data-id="{{ booking.id }}">{% trans 'Remove booking' %}</button>
+                        <hr>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+
+            <div class="monthly" id="mycalendar"></div>
+        </div>
     </div>
-    <div class="modal fade" id="BookingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal fade" id="BookingModal" tabindex="-1" role="dialog" aria-labelledby="BookingModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel">{% trans 'Make booking' %}</h4>
+                    <h4 class="modal-title" id="BookingModalLabel">{% trans 'Make booking' %}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
@@ -23,17 +39,27 @@
                         {% trans 'Do you want to book this?' %}
                         <div class="row">
                             <div class="col"><b>{% trans 'Start' %}:</b> </div>
-                            <div class="col"><span id="id_start"></span></div>
+                            <div class="col"><span id="text_start"></span></div>
                         </div>
                         <div class="row">
                             <div class="col"><b>{% trans 'End' %}:</b> </div>
-                            <div class="col"><span id="id_end"></span></div>
+                            <div class="col"><span id="text_end"></span></div>
                         </div>
-                        <div class="row">
-                            <div class="col"><b>{% trans 'Committee' %} <span data-toggle="tooltip" title="{% trans 'Leave blank for private use.' %}"><i class="fa fa-info-circle" aria-hidden="true"></i></span></b> </div>
-                            <div class="col"><input type="text" class="form-control" id="committee"></div>
-                        </div>
-                        <button type="submit" id="savebooking" class="btn btn-maskin">{% trans 'Make booking'%}</button>
+
+                        <form method="post">
+                            <div class="form-group">
+                                {% csrf_token %}
+                                {% for hidden in booking_form.hidden_fields %}
+                                    {{ hidden }}
+                                {% endfor %}
+                                {% for field in booking_form.visible_fields %}
+                                    {{ field.label_tag }} {{ field }}
+                                {% endfor %}
+                                {{ phone_form }}
+                                {{ email_form }}
+                            </div>
+                            <button type="submit" id="savebooking" class="btn btn-maskin">{% trans 'Make booking'%}</button>
+                        </form>
                     {% else %}
                         {% trans 'Login required to make bookings.' %}
                     {% endif %}
@@ -41,7 +67,38 @@
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="DeleteModalLabel">{% trans 'Delete booking' %}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    {% if user.is_authenticated %}
+                        {% trans 'Are you sure you want to delete this booking?' %}
+                        <div class="row">
+                            <div class="col"><b>{% trans 'Start' %}:</b> </div>
+                            <div class="col"><span id="text_start"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><b>{% trans 'End' %}:</b> </div>
+                            <div class="col"><span id="text_end"></span></div>
+                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for hidden in delete_booking.hidden_fields %}
+                                {{ hidden }}
+                            {% endfor %}
+                            <button type="submit" id="deletebooking" class="btn btn-maskin">{% trans 'Delete booking'%}</button>
+                        </form>
+                    {% else %}
+                        {% trans 'Login required to make bookings.' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="{% static 'monthly.js' %}"></script>
     <script type="text/javascript">
@@ -60,54 +117,20 @@
             var start = event.data('start');
             var end = event.data('end');
             var modal = $(this);
-            modal.find('.modal-body #id_start').text(start);
-            modal.find('.modal-body #id_end').text(end);
+            modal.find('.modal-body #text_start').text(start);
+            modal.find('.modal-body #text_end').text(end);
+            modal.find('.modal-body #id_start').val(start);
+            modal.find('.modal-body #id_end').val(end);
         });
-        $('#savebooking').on('click', function () {
-            $.ajax({
-                url: 'book',
-                data: {
-                    'start': $('.modal-body #id_start').text(),
-                    'end': $('.modal-body #id_end').text(),
-                    'committee': $('#committee').val(),
-               },
-               type: 'post',
-               success: function (data) {
-                  location.reload();
-               },
-               error: function (data) {
-
-                   $('.modal-body').prepend('<div class="alert alert-danger" role="alert">{% trans 'Something went wrong' %}</div>');
-               }
-            });
-        });
-
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie != '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = jQuery.trim(cookies[i]);
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        var csrftoken = getCookie('csrftoken');
-        function csrfSafeMethod(method) {
-            // these HTTP methods do not require CSRF protection
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                }
-            }
+        $('#DeleteModal').on('show.bs.modal', function (event) {
+            var event = $(event.relatedTarget);
+            var start = event.data('start');
+            var end = event.data('end');
+            var id = event.data('id');
+            var modal = $(this);
+            modal.find('.modal-body #text_start').text(start);
+            modal.find('.modal-body #text_end').text(end);
+            modal.find('.modal-body #id_id').val(id);
         });
     </script>
 

@@ -7,6 +7,9 @@
 {% block content %}
     <div class="row">
         <div class="col main-content">
+        {% for event in events %}
+            {% render_placeholder event.placeholder "640" %}
+        {% endfor %}
             <div class="row">
                 <div class="col">
                 <div class="form-group">

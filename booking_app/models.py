@@ -31,9 +31,13 @@ class BookingSpot(models.Model):
 class BookingConfig(AppHookConfig):
     booking_spots = models.ManyToManyField(BookingSpot, verbose_name=_('Booking spots'))
 
+    class Meta:
+        verbose_name = _('Booking object')
+        verbose_name_plural = _('Booking objects')
+
 
 class Booking(models.Model):
-    app_config = AppHookConfigField(BookingConfig, verbose_name=_('app config'), default=None)
+    app_config = AppHookConfigField(BookingConfig, verbose_name=_('Booking object'), default=None)
     name = models.CharField(verbose_name=_('name'),max_length=30,  default='')
     id = models.AutoField(primary_key=True)
     madeBy = models.ForeignKey(User, verbose_name=_('made by'))

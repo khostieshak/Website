@@ -11,3 +11,4 @@ shellkomandon.txt
 testdata.csv
 testdata2.csv
 *.zip
+/dynamic_placeholders.txt

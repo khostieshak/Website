@@ -1,14 +1,15 @@
 from aldryn_apphooks_config.mixins import AppConfigMixin
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponseRedirect
 from datetime import date, datetime, timedelta
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import ListView, CreateView, TemplateView
+from django.views.generic import ListView, TemplateView, View
 from itertools import chain
-from django import forms
 import pytz
 from models import Booking, BookingConfig
 from django.conf import settings
-
+from django.shortcuts import render
+from forms import BookingForm, DeleteBooking
+from maskin.forms import EmailForm, PhoneForm
 
 class FreeSpot(object):
     def __init__(self, id, name, start, end):
@@ -41,60 +42,66 @@ class XMLView(AppConfigMixin, ListView):
                             key=lambda instance: instance.start)
         return result_list
 
-
-class bookings(AppConfigMixin, CreateView):
-    model = Booking
-    template_name = 'bookings.html'
-    fields = ['start', 'end']
-    widgets = {
-        'start': forms.HiddenInput(),
-        'end': forms.HiddenInput()}
-
-    def form_valid(self, form):
-        form.instance.app_config = self.config
-        form.instance.madeBy = self.request.user
-        form.instance.name = self.request.user.first_name + ' ' + self.request.user.last_name
-        if form.instance.name.isspace():
-            form.instance.name = form.instance.madeBy
-        self.object = form.save()
-        return self.render_to_response(self.get_context_data(form=form))
-
-
-class book(AppConfigMixin, TemplateView):
+class bookings(AppConfigMixin, TemplateView):
     template_name = None
 
-    def post(self, request, *args, **kwargs):
-        if request.is_ajax:
-            if request.POST.has_key('start') and request.POST.has_key('end'):
-                tz = pytz.timezone(settings.TIME_ZONE)
-                start = datetime.strptime(request.POST['start'], '%Y-%m-%d %H:%M')
-                start = tz.localize(start)
-                end = datetime.strptime(request.POST['end'], '%Y-%m-%d %H:%M')
-                end = tz.localize(end)
-                app_config = self.config
+    def get(self, request, *args, **kwargs):
+        try:
+            email_form = EmailForm(instance=request.user)
+            phone_form = PhoneForm(instance=request.user.profile)
+            booking_form = BookingForm({'name': request.user.first_name + ' ' + request.user.last_name})
+            tz = pytz.timezone(settings.TIME_ZONE)
+            my_bookings = Booking.objects.filter(
+                madeBy=request.user,
+                start__gt=datetime.now(tz),
+                app_config=self.config)
+            delete_booking = DeleteBooking()
+        except AttributeError:
+            return render(request, 'bookings.html')
+        return render(request, 'bookings.html', {
+            'email_form': email_form,
+            'phone_form': phone_form,
+            'booking_form': booking_form,
+            'my_bookings': my_bookings,
+            'delete_booking': delete_booking
+        })
 
-                free = Booking.objects.free(app_config, start, end)
+    def post(self, request, *args, **kwargs):
+        try:
+            email_form = EmailForm(request.POST, instance=request.user)
+            phone_form = PhoneForm(request.POST, instance=request.user.profile)
+            booking_form = BookingForm(request.POST)
+            tz = pytz.timezone(settings.TIME_ZONE)
+            my_bookings = Booking.objects.filter(
+                madeBy=request.user,
+                start__gt=datetime.now(tz),
+                app_config=self.config).order_by('start')
+            delete_booking = DeleteBooking(request.POST)
+        except AttributeError:
+            return render(request, 'bookings.html')
+
+        if email_form.is_valid() and phone_form.is_valid() and booking_form.is_valid():
+            email_form.save()
+            phone_form.save()
+            new_booking=booking_form.save(commit=False)
+            if new_booking.start and new_booking.end:
+                new_booking.app_config = self.config
+
+                free = Booking.objects.free(new_booking.app_config, new_booking.start, new_booking.end)
                 a_booking_spot = BookingConfig.objects.filter(
-                    booking_spots__start__exact=start.time(),
-                    booking_spots__end__exact=end.time()).exists()
+                    booking_spots__start__exact=new_booking.start.time(),
+                    booking_spots__end__exact=new_booking.end.time()).exists()
 
                 if free and a_booking_spot:
-                    made_by = self.request.user
-                    name = ""
-                    if request.POST.has_key('committee'):
-                        name = request.POST['committee']
-                    if not name or name.isspace():
-                        name = self.request.user.first_name + ' ' + self.request.user.last_name
-                    if name.isspace():
-                        name = made_by
-                    Booking.objects.add_booking(app_config, name, made_by, start, end)
+                    new_booking.made_by = request.user
+                    Booking.objects.add_booking(new_booking.app_config, new_booking.name, new_booking.made_by, new_booking.start, new_booking.end)
+        if delete_booking.is_valid():
+            Booking.objects.filter(id__exact=delete_booking.cleaned_data['id']).delete()
 
-                    status = "Good"
-                    return HttpResponse(status)
-                else:
-                    status = "Error"
-                    return HttpResponseBadRequest(status)
-
-            else:
-                status = "Error"
-                return HttpResponseBadRequest(status)
+        return render(request, 'bookings.html', {
+            'email_form': email_form,
+            'phone_form': phone_form,
+            'booking_form': booking_form,
+            'my_bookings': my_bookings,
+            'delete_booking': delete_booking
+        })

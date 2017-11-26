@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 from datetime import date
 
 
-
 class SchoolYearManager(models.Manager):
     def current(self):
         try:
