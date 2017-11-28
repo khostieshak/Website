@@ -70,9 +70,12 @@ h1, h2, h3, h4, h5, h6 {
   background-color: white; }
 
 .sidebar {
-  margin: 0 30px;
+  margin: 0px;
   background-color: white;
   box-shadow: -5px 0px 5px rgba(0, 0, 0, 0.25); }
+  @media (min-width: 768px) {
+    .sidebar {
+      margin: 0 30px; } }
 
 .header, .footer {
   background-color: #B9000A;
@@ -160,5 +163,28 @@ h1, h2, h3, h4, h5, h6 {
     color: #B9000A;
     background-color: #FFE500;
     border-color: #FFE500; }
+
+.filer_image {
+  margin: 2px; }
+  .filer_image.right {
+    float: right; }
+  .filer_image.left {
+    float: left; }
+  .filer_image.center {
+    display: block;
+    margin: auto; }
+
+.video-fullwidth {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 35px;
+  height: 0;
+  overflow: hidden; }
+  .video-fullwidth iframe {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute; }
 
 /*# sourceMappingURL=main.css.map */
