@@ -12,6 +12,4 @@
 		<color>{% if booking.id == -1 %}#33C344{% else %}#094200{% endif %}</color>
 	</event>
     {% endfor %}
-
-
 </monthly>

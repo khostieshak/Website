@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load i18n %}
+
+{% block title %}{% trans 'Error' %}{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col main-content">
+            <h1>{% trans 'Internal server error' %}</h1>
+            <p>{% trans "Something went wrong please contact the webmaster" %}
+                <a href="mailto:webbutvecklare@maskinteknologsektionen.se">
+                    webbutvecklare@maskinteknologsektionen.se
+                </a>
+            </p>
+        </div>
+    </div>
+{% endblock content %}

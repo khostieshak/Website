@@ -1,9 +1,13 @@
 from .base import *
 
 SECRET_KEY = os.environ['SECRET_KEY']
-ALLOWED_HOSTS = ['maskin.eu-central-1.elasticbeanstalk.com', 'localhost', 'beta.maskinteknologsektionen.se']
+ALLOWED_HOSTS = ['maskin.eu-central-1.elasticbeanstalk.com',
+                 'localhost',
+                 'beta.maskinteknologsektionen.se',
+                 'www.maskinteknologsektionen.se',
+                 'maskinteknologsektionen.se']
 
-DEBUG = True
+DEBUG =False
 
 DATABASES = {
     'default': {

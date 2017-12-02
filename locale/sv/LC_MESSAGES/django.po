@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-26 22:57+0100\n"
-"PO-Revision-Date: 2017-11-26 23:01+0100\n"
+"POT-Creation-Date: 2017-12-02 18:04+0100\n"
+"PO-Revision-Date: 2017-12-02 18:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -50,6 +50,14 @@ msgstr "datum"
 #: .\advent_calendar\models.py:20
 msgid "display order"
 msgstr "visningsordning"
+
+#: .\advent_calendar\models.py:26
+msgid "Advent calendar day"
+msgstr "Julkalender dag"
+
+#: .\advent_calendar\models.py:27
+msgid "Advent calendar days"
+msgstr "Julkalender dagar"
 
 #: .\booking_app\cms_apps.py:8
 msgid "Booking App"
@@ -93,7 +101,7 @@ msgstr "namn"
 msgid "made by"
 msgstr "skapad av"
 
-#: .\booking_app\models.py:53
+#: .\booking_app\models.py:53 .\booking_app\templates\info.html:6
 msgid "Booking"
 msgstr "Bokning"
 
@@ -101,50 +109,74 @@ msgstr "Bokning"
 msgid "Bookings"
 msgstr "Bokningar"
 
-#: .\booking_app\templates\book.html:14 .\maskin\templates\profile.html:29
-msgid "Save changes"
-msgstr "Spara ändringar"
-
-#: .\booking_app\templates\bookings.html:14
+#: .\booking_app\templates\bookings.html:15
 msgid "Your upcoming bookings"
 msgstr "Dina kommande bokningar"
 
-#: .\booking_app\templates\bookings.html:18
+#: .\booking_app\templates\bookings.html:19
 msgid "Remove booking"
 msgstr "Ta bort bokning"
 
-#: .\booking_app\templates\bookings.html:33
-#: .\booking_app\templates\bookings.html:60
+#: .\booking_app\templates\bookings.html:34
+#: .\booking_app\templates\bookings.html:61
 msgid "Make booking"
 msgstr "Gör bokning"
 
-#: .\booking_app\templates\bookings.html:38
+#: .\booking_app\templates\bookings.html:39
 msgid "Do you want to book this?"
 msgstr "Vill du boka det här?"
 
-#: .\booking_app\templates\bookings.html:40
-#: .\booking_app\templates\bookings.html:80
+#: .\booking_app\templates\bookings.html:41
+#: .\booking_app\templates\bookings.html:81
 msgid "Start"
 msgstr "Start"
 
-#: .\booking_app\templates\bookings.html:44
-#: .\booking_app\templates\bookings.html:84
+#: .\booking_app\templates\bookings.html:45
+#: .\booking_app\templates\bookings.html:85
 msgid "End"
 msgstr "Slut"
 
-#: .\booking_app\templates\bookings.html:63
-#: .\booking_app\templates\bookings.html:95
+#: .\booking_app\templates\bookings.html:64
+#: .\booking_app\templates\bookings.html:96
 msgid "Login required to make bookings."
 msgstr "Inloggning krävs för att göra bokningar."
 
-#: .\booking_app\templates\bookings.html:73
-#: .\booking_app\templates\bookings.html:92
+#: .\booking_app\templates\bookings.html:74
+#: .\booking_app\templates\bookings.html:93
 msgid "Delete booking"
 msgstr "Ta bort bokning"
 
-#: .\booking_app\templates\bookings.html:78
+#: .\booking_app\templates\bookings.html:79
 msgid "Are you sure you want to delete this booking?"
 msgstr "Är du säker på att du vill ta bort bokningen?"
+
+#: .\booking_app\templates\bookings.html:107
+msgid "Info booking"
+msgstr "Info booking"
+
+#: .\booking_app\templates\info.html:4
+msgid "Information about the booking"
+msgstr "Information om bokningen"
+
+#: .\booking_app\templates\info.html:7
+msgid "Made by"
+msgstr "Skapad av"
+
+#: .\booking_app\templates\info.html:8
+msgid "LiuID"
+msgstr "LiuID"
+
+#: .\booking_app\templates\info.html:9
+msgid "Phone"
+msgstr "Telefon"
+
+#: .\booking_app\templates\info.html:10
+msgid "Email"
+msgstr "E-post"
+
+#: .\booking_app\templates\info.html:12
+msgid "Go to admin site"
+msgstr "Gå till adminsidan"
 
 #: .\booking_app\views.py:36
 msgid "Free"
@@ -261,6 +293,30 @@ msgstr "svenska"
 msgid "english"
 msgstr "engelska"
 
+#: .\maskin\settings\base.py:216
+msgid "Fullwidth"
+msgstr "Fullbredd"
+
+#: .\maskin\templates\404.html:5 .\maskin\templates\404.html:10
+msgid "Page not found"
+msgstr "Sidan kan inte hittas"
+
+#: .\maskin\templates\404.html:11
+msgid "The page dosen't exist or is under construction."
+msgstr "Sidan du letade efter finns inte eller är under uppbyggnad."
+
+#: .\maskin\templates\500.html:5
+msgid "Error"
+msgstr "Fel"
+
+#: .\maskin\templates\500.html:10
+msgid "Internal server error"
+msgstr "Internt serverfel"
+
+#: .\maskin\templates\500.html:11
+msgid "Something went wrong please contact the webmaster"
+msgstr "Någonting gick fel kontakta webmaster"
+
 #: .\maskin\templates\aldryn_newsblog\article_list.html:12
 #: .\maskin\templates\aldryn_newsblog\includes\search_results.html:12
 #: .\maskin\templates\aldryn_newsblog\plugins\archive.html:21
@@ -349,6 +405,10 @@ msgstr "Redan incheckad"
 msgid "No users found."
 msgstr "Inga användare hittade"
 
+#: .\maskin\templates\djangocms_video\fullwidth\video_player.html:20
+msgid "Your browser doesn't support this video format."
+msgstr "Din webbläsare stödjer inte det här videoformatet. "
+
 #: .\maskin\templates\language_chooser.html:7
 msgid "Change to language:"
 msgstr "Byt till språk:"
@@ -368,6 +428,10 @@ msgstr "Du är medlem i Maskinteknolgsektionen för det här läsåret!"
 #: .\maskin\templates\profile.html:17
 msgid "You are not a member of Maskinsektionen for this school year."
 msgstr "Du är inte medlem i Maskinteknologsektionen för det här läsåret."
+
+#: .\maskin\templates\profile.html:29
+msgid "Save changes"
+msgstr "Spara ändringar"
 
 #: .\maskin\templates\signups.html:3
 msgid "signed in"

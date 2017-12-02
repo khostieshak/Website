@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% if booking %}
+    <b>{% trans 'Information about the booking' %}</b>
+    <table>
+        <tr><td><b>{% trans 'Booking' %}</b></td><td>{{ booking.name }}</td></tr>
+        <tr><td><b>{% trans 'Made by' %}</b></td><td>{{ booking.madeBy.first_name }} {{ booking.madeBy.last_name }}</td></tr>
+        <tr><td><b>{% trans 'LiuID' %}</b></td><td>{{ booking.madeBy.username }}</td></tr>
+        <tr><td><b>{% trans 'Phone' %}</b></td><td>{{ booking.madeBy.profile.phone }}</td></tr>
+        <tr><td><b>{% trans 'Email' %}</b></td><td>{{ booking.madeBy.email }}</td></tr>
+    </table>
+    <a href="{% url 'admin:booking_app_booking_change' booking.id %}">{% trans "Go to admin site" %}</a>
+{% endif %}

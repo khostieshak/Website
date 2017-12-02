@@ -63,7 +63,7 @@ class bookings(AppConfigMixin, TemplateView):
             'phone_form': phone_form,
             'booking_form': booking_form,
             'my_bookings': my_bookings,
-            'delete_booking': delete_booking
+            'delete_booking': delete_booking,
         })
 
     def post(self, request, *args, **kwargs):
@@ -105,3 +105,8 @@ class bookings(AppConfigMixin, TemplateView):
             'my_bookings': my_bookings,
             'delete_booking': delete_booking
         })
+
+def ajax_info( request):
+    if request.method == 'POST':
+        booking = Booking.objects.get(id__exact=request.POST['bookingid'])
+        return render(request, 'info.html', {'booking': booking})
