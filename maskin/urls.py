@@ -19,6 +19,7 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^sitemap\.xml$', sitemap,
         {'sitemaps': {'cmspages': CMSSitemap}}),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
@@ -26,7 +27,6 @@ urlpatterns += i18n_patterns(
     url(r'^', include('cms.urls')),
     url(r'^accounts/login$', django_cas_ng.views.login, name='cas_ng_login'),
     url(r'^accounts/logout$', django_cas_ng.views.logout, name='cas_ng_logout'),
-    url(r'^accounts/callback$', django_cas_ng.views.callback, name='cas_ng_proxy_callback'),
     url(r'^profile',views.update_profile, name='profile'),
     url(r'^checkin', views.checkin, name='checkin'),
     url(r'^ajax/search', views.ajax_search, name='ajax_search'),

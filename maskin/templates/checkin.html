@@ -133,7 +133,7 @@
 
     });
 
-    $('.content').on('click', '.member-btn', function () {
+    $('.main-content').on('click', '.member-btn', function () {
         var liuid=$(this).data('liuid');
         var eventid=$("#event-picker option:selected").data('id');
         $.ajax({
@@ -150,7 +150,8 @@
         });
     });
 
-    $('.content').on('click', '.checkin-btn', function () {
+    $('.main-content').on('click', '.checkin-btn', function () {
+        var btn = $(this);
         var liuid=$(this).data('liuid');
         var eventid=$("#event-picker option:selected").data('id');
         $.ajax({
@@ -163,11 +164,14 @@
                 success: function (data) {
                     $("#signups").html(data);
                     $("#errormsg").hide();
+                    btn.text('{% trans 'Already checked in' %}');
+                    btn.removeClass('btn-maskin');
+                    btn.addClass('btn-light');
                 }
         });
     });
 
-    $('.content').on('click', '.remove-btn', function () {
+    $('.main-content').on('click', '.remove-btn', function () {
         var liuid=$(this).data('liuid');
         var eventname=$("#event-picker option:selected").val();
         $("#remove-user").text(liuid);

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-02 18:04+0100\n"
-"PO-Revision-Date: 2017-12-02 18:14+0100\n"
+"POT-Creation-Date: 2018-01-22 14:09+0100\n"
+"PO-Revision-Date: 2018-01-22 14:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: sv\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: .\advent_calendar\cms_appconfig.py:7
 msgid "start date"
@@ -127,12 +127,12 @@ msgid "Do you want to book this?"
 msgstr "Vill du boka det här?"
 
 #: .\booking_app\templates\bookings.html:41
-#: .\booking_app\templates\bookings.html:81
+#: .\booking_app\templates\bookings.html:81 .\booking_app\templates\info.html:7
 msgid "Start"
 msgstr "Start"
 
 #: .\booking_app\templates\bookings.html:45
-#: .\booking_app\templates\bookings.html:85
+#: .\booking_app\templates\bookings.html:85 .\booking_app\templates\info.html:8
 msgid "End"
 msgstr "Slut"
 
@@ -152,29 +152,29 @@ msgstr "Är du säker på att du vill ta bort bokningen?"
 
 #: .\booking_app\templates\bookings.html:107
 msgid "Info booking"
-msgstr "Info booking"
+msgstr "Info om boking"
 
 #: .\booking_app\templates\info.html:4
 msgid "Information about the booking"
 msgstr "Information om bokningen"
 
-#: .\booking_app\templates\info.html:7
+#: .\booking_app\templates\info.html:9
 msgid "Made by"
 msgstr "Skapad av"
 
-#: .\booking_app\templates\info.html:8
+#: .\booking_app\templates\info.html:10
 msgid "LiuID"
 msgstr "LiuID"
 
-#: .\booking_app\templates\info.html:9
+#: .\booking_app\templates\info.html:11
 msgid "Phone"
 msgstr "Telefon"
 
-#: .\booking_app\templates\info.html:10
+#: .\booking_app\templates\info.html:12
 msgid "Email"
 msgstr "E-post"
 
-#: .\booking_app\templates\info.html:12
+#: .\booking_app\templates\info.html:14
 msgid "Go to admin site"
 msgstr "Gå till adminsidan"
 
@@ -293,7 +293,7 @@ msgstr "svenska"
 msgid "english"
 msgstr "engelska"
 
-#: .\maskin\settings\base.py:216
+#: .\maskin\settings\base.py:218
 msgid "Fullwidth"
 msgstr "Fullbredd"
 

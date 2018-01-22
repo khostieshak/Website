@@ -211,6 +211,8 @@ AUTHENTICATION_BACKENDS = (
 CAS_SERVER_URL = 'https://login.it.liu.se/idp/profile/cas/login'
 LOGIN_URL = '/accounts/login'
 CAS_FORCE_CHANGE_USERNAME_CASE = 'lower'
+CAS_CREATE_USERS = True
+
 
 DJANGOCMS_VIDEO_TEMPLATES = [
     ('fullwidth', _('Fullwidth')),
