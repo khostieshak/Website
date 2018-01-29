@@ -98,7 +98,11 @@
                     $("#blip_field").val("");
                 },
                 error: function (data) {
-                    $("#errormsg").text(data.responseJSON.msg);
+                    if (data.status == 400){
+                        $("#errormsg").text(data.responseJSON.msg);
+                    }else{
+                        $("#errormsg").text('Unknown error');
+                    }
                     $("#errormsg").show();
                     $("#blip_field").val("");
                 }
