@@ -7,41 +7,40 @@
 {% block content %}
     <div class="row">
         <div class="col main-content">
-        {% for event in events %}
-            {% render_placeholder event.placeholder "640" %}
-        {% endfor %}
             <div class="row">
                 <div class="col">
-                <div class="form-group">
-                    <select class="form-control" id="event-picker">
-                            <option data-id="0">-- {% trans 'Pick event' %} --</option>
-                            {% for event in events %}
-                                <option data-id="{{ event.id }}">{{ event.name }} {{ event.start|date:'Y-m-d H:i' }}</option>
-                            {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-maskin btn-input" data-target="#search"><i class="fa fa-search" aria-hidden="true"></i> {% trans 'Search' %}</button>
-                    <button class="btn btn-maskin btn-input" data-target="#blip"><i class="fa fa-credit-card" aria-hidden="true"></i> <i class="fa fa-rss" aria-hidden="true"></i> {% trans 'Blip' %}</button>
-                </div>
-                <div class="alert alert-danger collapse" role="alert" id="errormsg">
-                </div>
-                    <div class="collapse" id="search">
-                            <input class="form-control" type="text" id="search_field" placeholder="{% trans 'Search' %}">
-                        <div class="row">
-                            <div class="col" id="search_results">
-                            </div>
+                    <div class="form-group">
+                        <select class="form-control" id="event-picker">
+                                <option data-id="0">-- {% trans 'Pick event' %} --</option>
+                                {% for event in events %}
+                                    <option data-id="{{ event.id }}">{{ event.name }} {{ event.start|date:'Y-m-d H:i' }}</option>
+                                {% endfor %}
+                        </select>
+                    </div>
+                    <div class="collapse" id="listpicker">
+                        <div class="form-group">
+                            <button class="btn btn-maskin btn-list" data-target="#signups-tab"><i class="fa fa-list" aria-hidden="true"></i> {% trans 'Signup list' %}</button>
+                            <button class="btn btn-maskin btn-list" data-target="#checkins-tab"><i class="fa fa-check" aria-hidden="true"></i> {% trans 'Check-in' %}</button>
+                            <span class="collapse" id="inputpicker">
+                                <button class="btn btn-maskin btn-input" data-target="#search"><i class="fa fa-search" aria-hidden="true"></i> {% trans 'Search' %}</button>
+                                <button class="btn btn-maskin btn-input" data-target="#blip"><i class="fa fa-credit-card" aria-hidden="true"></i> <i class="fa fa-rss" aria-hidden="true"></i> {% trans 'Blip' %}</button>
+                            </span>
                         </div>
                     </div>
-                    <div class="collapse form-group" id="blip">
+                    <div class="alert alert-danger collapse" role="alert" id="errormsg"></div>
+                    <div class="collapse form-group inputdiv" id="search">
+                            <input class="form-control" type="text" id="search_field" placeholder="{% trans 'Search' %}">
+                        <div class="row">
+                            <div class="col" id="search_results"></div>
+                        </div>
+                    </div>
+                    <div class="collapse form-group inputdiv" id="blip">
                         <input class="form-control" type="text" id="blip_field" placeholder="{% trans 'Blip' %}">
                     </div>
                 </div>
             </div>
-
             <div class="row">
-                <div class="col" id="signups">
-                </div>
+                <div class="col" id="signups"></div>
             </div>
         </div>
     </div>
@@ -53,8 +52,8 @@
                     <h5 class="modal-title">{% trans 'Remove sign up' %}</h5>
                 </div>
                 <div class="modal-body">
-                    <p>{% trans 'Do you want to delete the sign up for:' %} <b><span id="remove-user"></span></b> {% trans 'on event:' %} <b><span id="remove-event"></span></b>?</p>
-                    <button type="button" id="delete-signup" class="btn btn-maskin">{% trans "Yes, I'm sure." %}</button>
+                    <p>{% trans 'Do you want to remove the check-in for:' %} <b><span id="remove-user"></span></b> {% trans 'on event:' %} <b><span id="remove-event"></span></b>?</p>
+                    <button type="button" id="remove-checkin" class="btn btn-maskin">{% trans "Yes, I'm sure." %}</button>
                     <button type="button" data-dismiss="modal" class="btn btn-secondary">{% trans 'No' %}</button>
                 </div>
             </div>
@@ -93,8 +92,7 @@
                 },
                 datatype: 'html',
                 success: function (data) {
-                    $("#signups").html(data);
-                    $("#errormsg").hide();
+                    updatesignups(data);
                     $("#blip_field").val("");
                 },
                 error: function (data) {
@@ -115,22 +113,43 @@
         var target=$(this).data('target');
         $(target+" > input").val("");
         $(target).show();
-        $(".collapse:not("+target+")").hide();
+        $(".inputdiv:not("+target+")").hide();
+    });
+
+    $(".btn-list").on('click', function () {
+        $(".btn-list").removeClass('active');
+        $(this).addClass('active');
+        var target=$(this).data('target');
+        $(target).show();
+        if(target=="#checkins-tab"){
+            $("#inputpicker").show();
+        }else{
+            $("#inputpicker").hide();
+            $(".btn-input").removeClass('active');
+            $(".inputdiv").hide();
+        }
+        $(".listdiv:not("+target+")").hide();
     });
 
     $("#event-picker").on('change', function () {
         var id=$("#event-picker option:selected").data('id');
         if(id==0){
             $("#signups").hide();
+            $("#listpicker").hide();
+            $("#inputpicker").hide();
+            $(".inputdiv").hide();
         }else{
             $.ajax({
             url: '/{{ LANGUAGE_CODE }}/ajax/signups',
             data: {'eventid': id},
             datatype: 'html',
                 success: function (data) {
-                    $("#signups").html(data);
                     $("#signups").show();
-                    $("#errormsg").hide();
+                    updatesignups(data);
+                    $("#listpicker").show();
+                    $(".btn-list").removeClass('active');
+                    $(".btn-input").removeClass('active');
+
                 }
             });
         }
@@ -148,8 +167,7 @@
             },
             datatype: 'html',
                 success: function (data) {
-                    $("#signups").html(data);
-                    $("#errormsg").hide();
+                    updatesignups(data);
                 }
         });
     });
@@ -166,8 +184,7 @@
             },
             datatype: 'html',
                 success: function (data) {
-                    $("#signups").html(data);
-                    $("#errormsg").hide();
+                    updatesignups(data);
                     btn.text('{% trans 'Already checked in' %}');
                     btn.removeClass('btn-maskin');
                     btn.addClass('btn-light');
@@ -179,27 +196,35 @@
         var liuid=$(this).data('liuid');
         var eventname=$("#event-picker option:selected").val();
         $("#remove-user").text(liuid);
-        $("#delete-signup").data('liuid', liuid);
+        $("#remove-checkin").data('liuid', liuid);
         $("#remove-event").text(eventname);
         $("#remove-modal").modal('show');
     });
 
-    $("#delete-signup").on('click', function () {
+    $("#remove-checkin").on('click', function () {
         var liuid=$(this).data('liuid');
         var eventid=$("#event-picker option:selected").data('id');
         $.ajax({
-            url: '/{{ LANGUAGE_CODE }}/ajax/delete_signup',
+            url: '/{{ LANGUAGE_CODE }}/ajax/remove_checkin',
             data: {
                 'liuid': liuid,
                 'eventid': eventid,
             },
             datatype: 'html',
                 success: function (data) {
-                    $("#signups").html(data);
+                    updatesignups(data);
                     $("#remove-modal").modal('hide');
-                    $("#errormsg").hide();
+
                 }
         });
     });
+
+    function updatesignups(data) {
+        $("#signups").html(data);
+        $("#errormsg").hide();
+        var target = $(".btn-list.active").data('target');
+        $(target).show();
+
+    }
   </script>
 {% endblock javascript %}

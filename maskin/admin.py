@@ -18,8 +18,8 @@ class EventAdmin(admin.ModelAdmin):
 
 
 class SignupAdmin(admin.ModelAdmin):
-    list_display = ('user', 'event', 'timestamp')
-
+    list_display = ('user', 'event')
+    list_filter = ('event',)
 
 admin.site.register(models.Profile, ProfileAdmin)
 admin.site.register(models.SchoolYear)

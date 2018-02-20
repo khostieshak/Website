@@ -83,7 +83,7 @@ def ajax_search(request):
 @login_required()
 def ajax_blip(request):
     if request.user.has_perm('maskin.add_signup'):
-        if request.method == 'GET':
+        if request.is_ajax():
             query = request.GET['query']
             try:
                 req = urllib2.Request('https://kobra.karservice.se/api/v1/students/' + query + '/')
@@ -99,17 +99,12 @@ def ajax_blip(request):
                     user.last_name = last_name
                     user.email = student['email']
                     user.save()
-                event = models.Event.objects.get(id=request.GET['eventid'])
-                tz = pytz.timezone(settings.TIME_ZONE)
-                now = tz.localize(datetime.datetime.now())
-                obj = models.Signup(user=user, event=event, timestamp=now)
-                obj.save()
+
+                request.GET = request.GET.copy() # Make a copy of the request
+                request.GET['liuid']=student['liu_id'] # Modify the request
+                return ajax_checkin(request) # Send a check in request
             except urllib2.HTTPError:
-                response = JsonResponse({"msg": (_("No student found with card number: ") + query).encode('utf-8')})
-                response.status_code = 400  # Bad request
-                return response
-            except IntegrityError:
-                response = JsonResponse({"msg": (_("Already checked in to this event.")).encode('utf-8')})
+                response = JsonResponse({"msg": (_("No student found with card number:") + ' ' + query).encode('utf-8')})
                 response.status_code = 400  # Bad request
                 return response
 
@@ -119,7 +114,7 @@ def ajax_blip(request):
 
 @login_required
 def ajax_add_member(request):
-    if request.method == 'GET':
+    if request.is_ajax():
         liuid = request.GET['liuid']
         group_name = models.SchoolYear.objects.current().get_member_group()
         g = Group.objects.get(name=group_name)
@@ -143,29 +138,49 @@ def ajax_no_member(request):
 
 
 def ajax_signups(request):
-    if request.method == 'GET':
+    if request.is_ajax():
         id = request.GET['eventid']
         qs = models.Signup.objects.filter(event__id=id)
-    members=0
-    for signup in qs:
-        if is_member(signup.user):
-            members += 1
+    N_signups=0
+    N_checkins=0
+    N_checkedinmembers=0
 
-    return render(request, 'signups.html', {'signups': qs, 'members': members})
+    for signup in qs:
+        if signup.signup:
+            N_signups += 1
+        if signup.checkin:
+            N_checkins += 1
+            if is_member(signup.user):
+                N_checkedinmembers += 1
+
+    return render(request, 'signups.html', {
+        'signups': qs,
+        'N_checkedinmembers': N_checkedinmembers,
+        'N_signups': N_signups,
+        'N_checkins': N_checkins,
+        'eventid': id
+    })
 
 
 @login_required()
 def ajax_checkin(request):
     if request.user.has_perm('maskin.add_signup'):
-        if request.method == 'GET':
+        if request.is_ajax():
             user=User.objects.get(username=request.GET['liuid'])
             event = models.Event.objects.get(id=request.GET['eventid'])
             try:
-                tz = pytz.timezone(settings.TIME_ZONE)
-                now=tz.localize(datetime.datetime.now())
-                obj = models.Signup(user=user, event=event, timestamp=now)
-                obj.save()
-            except IntegrityError:  # Already signed up
+                signup, created = models.Signup.objects.get_or_create(user=user, event=event)
+                if signup.checkin:
+                    response = JsonResponse({"msg": (_("Already checked-in to this event.")).encode('utf-8')})
+                    response.status_code = 400  # Bad request
+                    return response
+                else:
+                    signup.checkin = True
+                    tz = pytz.timezone(settings.TIME_ZONE)
+                    now=tz.localize(datetime.datetime.now())
+                    signup.timestamp_checkin = now
+                    signup.save()
+            except IntegrityError:
                 pass
             return ajax_signups(request)
     else:
@@ -173,15 +188,62 @@ def ajax_checkin(request):
 
 
 @login_required()
-def ajax_delete_signup(request):
+def ajax_remove_checkin(request):
     if request.user.has_perm('maskin.delete_signup'):
-        if request.method == 'GET':
-            user=User.objects.get(username=request.GET['liuid'])
+        if request.is_ajax():
+            user = User.objects.get(username=request.GET['liuid'])
             event = models.Event.objects.get(id=request.GET['eventid'])
             try:
-                models.Signup.objects.get(user=user, event=event).delete()
+                signup = models.Signup.objects.get(user=user, event=event)
+                signup.checkin = False
+                signup.save()
             except:
                 pass
             return ajax_signups(request)
     else:
         return render(request, 'permission_denied.html')
+
+def event(request, eventid):
+    event = models.Event.objects.get(id__exact=eventid)
+    signups = models.Signup.objects.filter(event=event, signup=True)
+
+    return render(request, 'event.html', {'event': event, 'signups': signups})
+
+
+@login_required()
+def ajax_add_signup(request, eventid):
+    if request.is_ajax():
+        signup, created = models.Signup.objects.get_or_create(user=request.user, event_id=eventid)
+        if created or not signup.signup:
+            signup.signup = True
+            tz = pytz.timezone(settings.TIME_ZONE)
+            now = tz.localize(datetime.datetime.now())
+            signup.timestamp_signup = now
+            signup.save()
+            response = JsonResponse({"msg": (_("Thanks for your register.")).encode('utf-8')})
+            response.status_code = 202  # Accepted
+            return response
+        else:
+            response = JsonResponse({"msg": (_("Already signed up for this event.")).encode('utf-8')})
+            response.status_code = 406  # Not Acceptable
+            return response
+
+
+@login_required()
+def ajax_remove_signup(request, eventid):
+    if request.is_ajax():
+
+        signup = models.Signup.objects.get(user=request.user, event_id=eventid)
+        if signup: #if signup exist
+            signup.signup = False
+            tz = pytz.timezone(settings.TIME_ZONE)
+            mintime = tz.localize(datetime.datetime(999,1,1,0,0))
+            signup.timestamp_signup = mintime
+            signup.save()
+            response = JsonResponse({"msg": (_("Register removed.")).encode('utf-8')})
+            response.status_code = 202  # Accepted
+            return response
+        else:
+            response = JsonResponse({"msg": (_("Something went wrong.")).encode('utf-8')})
+            response.status_code = 400  # Bad Request
+            return response

@@ -1,4 +1,4 @@
-{% load member_check signup_check %}
+{% load member_check event_checks %}
 {% load i18n %}
 <table class="table">
     <thead>
@@ -14,7 +14,7 @@
         {% for user in users %}
             <tr>
                 <td>
-                    {% if user|signedinto:eventid %}
+                    {% if user|checkedinto:eventid %}
                         <button class="btn btn-light">
                             {% trans 'Already checked in' %}
                         </button>

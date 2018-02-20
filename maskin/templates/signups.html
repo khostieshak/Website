@@ -1,36 +1,90 @@
-{% load member_check %}
+{% load member_check event_checks %}
 {% load i18n %}
-<h3>{{ signups.count }} {% trans 'signed in' %} ({{ members }} {% trans 'members' %})</h3>
-<table class="table">
-    <thead>
-    <tr>
-        <th class="d-none d-md-table-cell">{% trans 'Timestamp' %}</th>
-        <th class="d-none d-md-table-cell">LiuID</th>
-        <th>{% trans 'Name' %}</th>
-        <th>{% trans 'Membership' %}</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-{% if signups.count > 0 %}
-    {% for signup in signups %}
+<div id="signups-tab" class="collapse listdiv">
+    <h3>{{ N_signups }} {% trans 'sign ups' %}</h3>
+    <table class="table">
+        <thead>
         <tr>
-            <td class="d-none d-md-table-cell">{{ signup.timestamp|date:'Y-m-d H:i' }}</td>
-            <td class="d-none d-md-table-cell">{{ signup.user.username }}</td>
-            <td>{{ signup.user.first_name }} {{ signup.user.last_name }}</td>
-            {% if signup.user|is_member %}
-                <td><i class="fa fa-check fa-lg text-success" aria-hidden="true"></i></td>
-            {% else %}
-                <td>
-                    <i class="fa fa-times fa-lg text-danger" aria-hidden="true"></i>
-                    <button class="btn btn-maskin member-btn" data-liuid="{{ signup.user.username }}">{% trans 'Become member' %}</button>
-                </td>
-            {% endif %}
-            <td><button class="btn btn-maskin remove-btn" data-liuid="{{ signup.user.username }}">{% trans 'Remove' %}</button></td>
+            <th></th>
+            <th class="d-none d-md-table-cell">{% trans 'Timestamp' %}</th>
+            <th class="d-none d-md-table-cell">LiuID</th>
+            <th>{% trans 'Name' %}</th>
+            <th>{% trans 'Membership' %}</th>
         </tr>
-    {% endfor %}
-{% else %}
-    {% trans 'No sign ups found.' %}
-{% endif %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+    {% if signups.count > 0 %}
+        {% for signup in signups|dictsortreversed:"timestamp_signup" %}
+            {% if signup.signup %}
+                <tr>
+                    <td>
+                        {% if signup.user|checkedinto:eventid %}
+                            <button class="btn btn-light">
+                                {% trans 'Already checked in' %}
+                            </button>
+                        {% else %}
+                            <button class="btn btn-maskin checkin-btn" data-liuid="{{ signup.user.username }}">
+                                {% trans 'Check in' %}
+                            </button>
+                        {% endif %}
+                    </td>
+                    <td class="d-none d-md-table-cell">{{ signup.timestamp_signup|date:'Y-m-d H:i' }}</td>
+                    <td class="d-none d-md-table-cell">{{ signup.user.username }}</td>
+                    <td>{{ signup.user.first_name }} {{ signup.user.last_name }}</td>
+                    {% if signup.user|is_member %}
+                        <td><i class="fa fa-check fa-lg text-success" aria-hidden="true"></i></td>
+                    {% else %}
+                        <td>
+                            <i class="fa fa-times fa-lg text-danger" aria-hidden="true"></i>
+                            <button class="btn btn-maskin member-btn" data-liuid="{{ signup.user.username }}">{% trans 'Become member' %}</button>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% trans 'No sign ups found.' %}
+    {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<div id="checkins-tab" class="collapse listdiv">
+    <h3>{{ N_checkins }} {% trans 'check-ins' %} ({{ N_checkedinmembers }} {% trans 'members' %})</h3>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="d-none d-md-table-cell">{% trans 'Timestamp' %}</th>
+            <th class="d-none d-md-table-cell">LiuID</th>
+            <th>{% trans 'Name' %}</th>
+            <th>{% trans 'Membership' %}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+    {% if signups.count > 0 %}
+        {% for signup in signups|dictsortreversed:"timestamp_checkin" %}
+            {% if signup.checkin %}
+                <tr>
+                    <td class="d-none d-md-table-cell">{{ signup.timestamp_checkin|date:'Y-m-d H:i' }}</td>
+                    <td class="d-none d-md-table-cell">{{ signup.user.username }}</td>
+                    <td>{{ signup.user.first_name }} {{ signup.user.last_name }}</td>
+                    {% if signup.user|is_member %}
+                        <td><i class="fa fa-check fa-lg text-success" aria-hidden="true"></i></td>
+                    {% else %}
+                        <td>
+                            <i class="fa fa-times fa-lg text-danger" aria-hidden="true"></i>
+                            <button class="btn btn-maskin member-btn" data-liuid="{{ signup.user.username }}">{% trans 'Become member' %}</button>
+                        </td>
+                    {% endif %}
+                    <td><button class="btn btn-maskin remove-btn" data-liuid="{{ signup.user.username }}">{% trans 'Remove' %}</button></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% trans 'No sign ups found.' %}
+    {% endif %}
+        </tbody>
+    </table>
+</div>

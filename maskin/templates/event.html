@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load cms_tags event_checks %}
+{% load i18n %}
+
+{% block title %}{{ event.name }}{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col main-content">
+            <h1>{{ event.name }}</h1>
+            <i class="fa fa-map-marker"></i></i> {{event.location }} <br>
+            <i class="fa fa-clock-o"></i> {{ event.start|date:"j F Y, H:i" }} {% trans 'to' %}
+            {% if event.start.date !=  event.end.date %}{{ event.end|date:"j F Y," }} {% endif %}{{ event.end|date:"H:i" }}<br>
+            <i class="fa fa-pencil-square-o"></i>
+            {% if event.type == 0 %}
+                {% trans 'No signup for this event' %}
+            {% elif event.type == 1 and event.maxsignups != 9999 %}
+               {% trans 'Maximum' %} {{ event.maxsignups }} {% trans 'registers' %}.
+            {% else %}
+                {% trans 'Accepted after selection.' %}
+            {% endif %}
+            {% render_placeholder event.placeholder %}
+            <div class="alert alert-danger collapse" role="alert" id="errormsg"></div>
+            <div class="alert alert-success collapse" role="alert" id="successmsg"></div>
+
+            {% if event.type == 1 %}
+                {% if user.is_authenticated and user|signedup:event.id %}
+                    <button class="btn btn-maskin" id="remove-btn">{% trans 'Remove your registry'%}</button>
+                {% endif %}
+                {% if signups.count < event.maxsignups %}
+                    {% if user.is_authenticated %}
+                        {% if not user|signedup:event.id %}
+                            <button class="btn btn-maskin" id="signup-btn">{% trans 'Make registry'%}</button>
+                        {% endif %}
+                    {% else %}
+                        <a href="/accounts/login">{% trans 'Sign in to sign up.' %}</a>
+                    {% endif %}
+                {% else %}
+                    <i>{% trans 'The max amount of registers are reached.' %}</i>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="col-md-3 sidebar">
+            {% static_placeholder "Static sidebar" %}
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+<script>
+    $('#signup-btn').on('click', function () {
+        $.ajax({
+            url: '/{{ LANGUAGE_CODE }}/ajax/add_signup/{{ event.id }}',
+            datatype: 'json',
+            success: function (data) {
+                $("#successmsg").text(data.msg).show();
+            },
+            error: function (data) {
+                $("#errormsg").text(data.responseJSON.msg).show();
+            }
+        });
+    });
+    $('#remove-btn').on('click', function () {
+        $.ajax({
+            url: '/{{ LANGUAGE_CODE }}/ajax/remove_signup/{{ event.id }}',
+            datatype: 'json',
+            success: function (data) {
+                $("#successmsg").text(data.msg).show();
+            }
+        });
+    });
+</script>
+{% endblock javascript %}

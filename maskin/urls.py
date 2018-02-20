@@ -28,6 +28,7 @@ urlpatterns += i18n_patterns(
     url(r'^accounts/login$', django_cas_ng.views.login, name='cas_ng_login'),
     url(r'^accounts/logout$', django_cas_ng.views.logout, name='cas_ng_logout'),
     url(r'^profile',views.update_profile, name='profile'),
+    url(r'^event/(\d+)', views.event, name='event'),
     url(r'^checkin', views.checkin, name='checkin'),
     url(r'^ajax/search', views.ajax_search, name='ajax_search'),
     url(r'^ajax/blip', views.ajax_blip, name='ajax_blip'),
@@ -36,7 +37,9 @@ urlpatterns += i18n_patterns(
     url(r'^ajax/no_member', views.ajax_no_member, name='ajax_no_member'),
     url(r'^ajax/signups', views.ajax_signups, name='ajax_signups'),
     url(r'^ajax/checkin', views.ajax_checkin, name='ajax_checkin'),
-    url(r'^ajax/delete_signup', views.ajax_delete_signup, name='ajax_delete_signup'),
+    url(r'^ajax/remove_checkin', views.ajax_remove_checkin, name='ajax_remove_checkin'),
+    url(r'^ajax/add_signup/(\d+)', views.ajax_add_signup, name='ajax_add_signup'),
+    url(r'^ajax/remove_signup/(\d+)', views.ajax_remove_signup, name='ajax_remove_signup'),
 )
 
 # This is only needed when using runserver.
