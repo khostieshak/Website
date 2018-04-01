@@ -3,7 +3,12 @@ from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 from datetime import date
+
+from aldryn_newsblog.models import Article, NewsBlogCMSPlugin
+from aldryn_newsblog.utils.utilities import get_valid_languages_from_request
+from aldryn_categories.fields import CategoryManyToManyField
 
 
 class SchoolYearManager(models.Manager):
@@ -91,3 +96,43 @@ class Signup(models.Model):
         verbose_name_plural = _("Sign ups")
         ordering = ['-timestamp']
         unique_together = (('user', 'event'),)
+
+
+class NewsBlogLatestArticleByCategory(NewsBlogCMSPlugin):
+    latest_articles = models.IntegerField(
+        default=5,
+        help_text=_('The maximum number of latest articles to display.')
+    )
+    categories = CategoryManyToManyField('aldryn_categories.Category',
+                                         verbose_name=_('categories'),
+                                         blank=True)
+
+    # copy manytomany and foreignkey relationship from edited plugin to published plugin
+    def copy_relations(self, oldinstance):
+        self.categories = oldinstance.categories.all()
+
+    def get_articles(self, request):
+        """
+        Returns a queryset of the latest N articles in one or more of the M categories.
+        N is the plugin setting: latest_articles.
+        M is the plugin setting: categories
+        """
+        queryset = Article.objects.published()
+        queryset = queryset.all().filter(categories__in=self.categories.all())
+
+        if not self.latest_articles:
+            return Article.objects.none()
+        languages = get_valid_languages_from_request(
+            self.app_config.namespace, request)
+        if self.language not in languages:
+            return queryset.none()
+        queryset = queryset.translated(*languages).filter(
+            app_config=self.app_config)
+
+        return queryset[:self.latest_articles]
+
+    def __str__(self):
+        return ugettext('%(app_title)s latest articles by category: %(latest_articles)s') % {
+            'app_title': self.app_config.get_app_title(),
+            'latest_articles': self.latest_articles,
+        }

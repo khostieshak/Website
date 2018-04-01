@@ -1,5 +1,4 @@
 {% load i18n staticfiles thumbnail cms_tags apphooks_config_tags %}
-<hr>
 <article class="article
     {% if article.is_featured %} featured{% endif %}
     {% if not article.published %} unpublished{% endif %}">
@@ -40,3 +39,4 @@
         {% render_placeholder article.content language placeholder_language %}
     {% endif %}
 </article>
+<hr>

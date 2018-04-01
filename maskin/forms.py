@@ -1,7 +1,8 @@
 from django.forms import Form, ModelForm, TextInput, BooleanField, Select, NumberInput, CheckboxInput
 from django.contrib.auth.models import User
-from models import Profile
+from models import Profile, NewsBlogLatestArticleByCategory
 from django.utils.translation import ugettext_lazy as _
+from aldryn_newsblog.forms import AutoAppConfigFormMixin
 
 
 class MemberForm(Form):
@@ -45,3 +46,10 @@ class ProfileForm(ModelForm):
             'start_year': NumberInput(attrs={'class': 'form-control'}),
             'master': TextInput(attrs={'class': 'form-control'})
         }
+
+class NewsBlogLatestArticleByCategoryPluginForm(AutoAppConfigFormMixin, ModelForm):
+    class Meta:
+        model = NewsBlogLatestArticleByCategory
+        fields = [
+            'app_config', 'latest_articles', 'categories'
+        ]
