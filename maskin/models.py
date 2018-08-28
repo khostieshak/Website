@@ -10,6 +10,8 @@ from aldryn_newsblog.models import Article, NewsBlogCMSPlugin
 from aldryn_newsblog.utils.utilities import get_valid_languages_from_request
 from aldryn_categories.fields import CategoryManyToManyField
 
+from cms.models.pluginmodel import CMSPlugin
+from django import forms
 
 class SchoolYearManager(models.Manager):
     def current(self):
@@ -53,6 +55,7 @@ class Profile(models.Model):
     program = models.CharField(_("Program"), max_length=10, blank=True, choices=PROGRAM_CHOICES)
     start_year = models.IntegerField(_("Start year"), default=0)
     master = models.CharField(_("Master profile"), max_length=30, blank=True)
+    rfid = models.IntegerField(_("LiUID Card number"), default=0)
 
     def __str__(self):
         return self.user.username
@@ -136,3 +139,10 @@ class NewsBlogLatestArticleByCategory(NewsBlogCMSPlugin):
             'app_title': self.app_config.get_app_title(),
             'latest_articles': self.latest_articles,
         }
+
+class MemberPluginModel(CMSPlugin):
+    MEMBER_CHOICES = ((True, _('Show for members only.')), (False, _('Show for none members only.')))
+    ShowForMembers = models.BooleanField(
+        default=True,
+        choices=MEMBER_CHOICES
+    )

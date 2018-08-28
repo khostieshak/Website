@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-01 19:55-0300\n"
-"PO-Revision-Date: 2018-04-01 19:57-0300\n"
+"POT-Creation-Date: 2018-08-28 16:23+0200\n"
+"PO-Revision-Date: 2018-08-28 16:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: sv\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #: .\advent_calendar\cms_appconfig.py:7
 msgid "start date"
@@ -67,13 +67,13 @@ msgstr "Boknings app"
 msgid "Committee or name (for private use)"
 msgstr "Utskott/kommitté/förening eller namn (för privat bruk)"
 
-#: .\booking_app\models.py:21 .\booking_app\models.py:44 .\maskin\models.py:25
-#: .\maskin\models.py:79
+#: .\booking_app\models.py:21 .\booking_app\models.py:44 .\maskin\models.py:27
+#: .\maskin\models.py:82
 msgid "start"
 msgstr "start"
 
-#: .\booking_app\models.py:22 .\booking_app\models.py:45 .\maskin\models.py:26
-#: .\maskin\models.py:80
+#: .\booking_app\models.py:22 .\booking_app\models.py:45 .\maskin\models.py:28
+#: .\maskin\models.py:83
 msgid "end"
 msgstr "slut"
 
@@ -93,7 +93,7 @@ msgstr "Bokningsobjekt"
 msgid "Booking objects"
 msgstr "Bokningsobjekt"
 
-#: .\booking_app\models.py:41 .\maskin\models.py:23 .\maskin\models.py:77
+#: .\booking_app\models.py:41 .\maskin\models.py:25 .\maskin\models.py:80
 msgid "name"
 msgstr "namn"
 
@@ -187,11 +187,15 @@ msgstr "Ledig"
 msgid "Name"
 msgstr "Namn"
 
-#: .\maskin\cms_plugins.py:11
+#: .\maskin\cms_plugins.py:12
 msgid "Latest Articles By Category"
 msgstr "Senaste artiklar per kategori"
 
-#: .\maskin\forms.py:10 .\maskin\templates\base.html:122
+#: .\maskin\cms_plugins.py:26
+msgid "Show for members"
+msgstr "Visa för medlemar"
+
+#: .\maskin\forms.py:10 .\maskin\templates\base.html:125
 #: .\maskin\templates\signups.html:26
 msgid "Become member"
 msgstr "Bli medlem"
@@ -200,107 +204,119 @@ msgstr "Bli medlem"
 msgid "Want to become a member?"
 msgstr "Vill du bli medlem?"
 
-#: .\maskin\models.py:24
+#: .\maskin\models.py:26
 msgid "Member group"
 msgstr "Medlemsgrupp"
 
-#: .\maskin\models.py:37 .\maskin\templates\profile.html:13
+#: .\maskin\models.py:39 .\maskin\templates\profile.html:13
 #: .\maskin\templates\profile.html:17
 msgid "School year"
 msgstr "Läsår"
 
-#: .\maskin\models.py:38
+#: .\maskin\models.py:40
 msgid "School years"
 msgstr "Läsår"
 
-#: .\maskin\models.py:43
+#: .\maskin\models.py:45
 msgid "Member years"
 msgstr "Läsår"
 
-#: .\maskin\models.py:44
+#: .\maskin\models.py:46
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: .\maskin\models.py:46
+#: .\maskin\models.py:48
 msgid "Mechanical engingering"
 msgstr "Maskinteknik"
 
-#: .\maskin\models.py:47
+#: .\maskin\models.py:49
 msgid "Design and Product Development"
 msgstr "Design och produktutveckling"
 
-#: .\maskin\models.py:48
+#: .\maskin\models.py:50
 msgid "Energy-Environment-Management"
 msgstr "Energi - miljö - management"
 
-#: .\maskin\models.py:49
+#: .\maskin\models.py:51
 msgid "Masterprogram"
 msgstr "Masterprogram"
 
-#: .\maskin\models.py:50
+#: .\maskin\models.py:52
 msgid "Exchange student"
 msgstr "Utbytesstudent"
 
-#: .\maskin\models.py:51
+#: .\maskin\models.py:53
 msgid "Other"
 msgstr "Annat"
 
-#: .\maskin\models.py:53
+#: .\maskin\models.py:55
 msgid "Program"
 msgstr "Program"
 
-#: .\maskin\models.py:54
+#: .\maskin\models.py:56
 msgid "Start year"
 msgstr "Startår"
 
-#: .\maskin\models.py:55
+#: .\maskin\models.py:57
 msgid "Master profile"
 msgstr "Masterprofil"
 
-#: .\maskin\models.py:61 .\maskin\templates\profile.html:6
+#: .\maskin\models.py:58
+msgid "LiUID Card number"
+msgstr "LiU-kortnummer"
+
+#: .\maskin\models.py:64 .\maskin\templates\profile.html:6
 msgid "Profile"
 msgstr "Profil"
 
-#: .\maskin\models.py:62
+#: .\maskin\models.py:65
 msgid "Profiles"
 msgstr "Profiler"
 
-#: .\maskin\models.py:78
+#: .\maskin\models.py:81
 msgid "location"
 msgstr "plats"
 
-#: .\maskin\models.py:86
+#: .\maskin\models.py:89
 msgid "Event"
 msgstr "Event"
 
-#: .\maskin\models.py:87
+#: .\maskin\models.py:90
 msgid "Events"
 msgstr "Events"
 
-#: .\maskin\models.py:92
+#: .\maskin\models.py:95
 msgid "timestamp"
 msgstr "tidsstämpel"
 
-#: .\maskin\models.py:95
+#: .\maskin\models.py:98
 msgid "Sign up"
 msgstr "Registrering"
 
-#: .\maskin\models.py:96
+#: .\maskin\models.py:99
 msgid "Sign ups"
 msgstr "Registreringar"
 
-#: .\maskin\models.py:104
+#: .\maskin\models.py:107
 msgid "The maximum number of latest articles to display."
 msgstr "Maximalt antal senaste nyheter som ska visas."
 
-#: .\maskin\models.py:107
+#: .\maskin\models.py:110
 msgid "categories"
-msgstr "Kategorier"
+msgstr "kategorier"
 
-#: .\maskin\models.py:135
+#: .\maskin\models.py:138
 #, python-format
 msgid "%(app_title)s latest articles by category: %(latest_articles)s"
 msgstr "%(app_title)s senaste artiklar per kategori: %(latest_articles)s"
+
+#: .\maskin\models.py:144
+msgid "Show for members only."
+msgstr "Visa endast för medlemmar endast."
+
+#: .\maskin\models.py:144
+msgid "Show for none members only."
+msgstr "Visa för icke medlemmar endast."
 
 #: .\maskin\settings\base.py:149
 msgid "swedish"
@@ -350,29 +366,41 @@ msgstr "Sök efter rubrik"
 msgid "All"
 msgstr "Alla"
 
-#: .\maskin\templates\base.html:61
+#: .\maskin\templates\base.html:62
 msgid "At Linköping university"
 msgstr "Vid Linköpings universitet"
 
-#: .\maskin\templates\base.html:92
+#: .\maskin\templates\base.html:93
 msgid "Log out"
 msgstr "Logga ut"
 
-#: .\maskin\templates\base.html:94
+#: .\maskin\templates\base.html:95
 msgid "Log in"
 msgstr "Logga in"
 
-#: .\maskin\templates\base.html:125
+#: .\maskin\templates\base.html:128
 msgid "You are not a member of the association. Want to become one?"
 msgstr "Du är inte medlem i sektionen för det här läsåret. Vill du bli det?"
 
-#: .\maskin\templates\base.html:126
+#: .\maskin\templates\base.html:129
 msgid "Yes, sign me up!"
 msgstr "Ja, registrera mig!"
 
-#: .\maskin\templates\base.html:127
+#: .\maskin\templates\base.html:130
 msgid "No thanks."
 msgstr "Nej tack."
+
+#: .\maskin\templates\base.html:166
+msgid "Add personal information"
+msgstr "Lägg till personuppgifter"
+
+#: .\maskin\templates\base.html:169
+msgid "You need to add required information to your profile."
+msgstr "Du måste lägga till obligatoriska uppgifter i din profil."
+
+#: .\maskin\templates\base.html:170
+msgid "Link to your profile."
+msgstr "Länk till din profil."
 
 #: .\maskin\templates\checkin.html:5 .\maskin\templates\checkin_search.html:23
 msgid "Check in"
@@ -421,11 +449,11 @@ msgstr "Medlemskap"
 
 #: .\maskin\templates\checkin_search.html:38
 msgid "No users found."
-msgstr "Inga användare hittade"
+msgstr "Inga användare hittade."
 
 #: .\maskin\templates\djangocms_video\fullwidth\video_player.html:20
 msgid "Your browser doesn't support this video format."
-msgstr "Din webbläsare stödjer inte det här videoformatet. "
+msgstr "Din webbläsare stödjer inte det här videoformatet."
 
 #: .\maskin\templates\language_chooser.html:7
 msgid "Change to language:"
@@ -451,6 +479,10 @@ msgstr "Du är inte medlem i Maskinteknologsektionen för det här läsåret."
 msgid "Save changes"
 msgstr "Spara ändringar"
 
+#: .\maskin\templates\profile.html:31
+msgid "To delete your profile please contact"
+msgstr "För att ta bort informationen kontakta"
+
 #: .\maskin\templates\signups.html:3
 msgid "signed in"
 msgstr "incheckade"
@@ -473,7 +505,7 @@ msgstr "Inga registreringar hittade."
 
 #: .\maskin\views.py:108
 msgid "No student found with card number: "
-msgstr "Ingen student med kortnummer:"
+msgstr "Ingen student med kortnummer: "
 
 #: .\maskin\views.py:112
 msgid "Already checked in to this event."

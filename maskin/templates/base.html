@@ -1,5 +1,6 @@
 {% load cms_tags menu_tags sekizai_tags %}
 {% load member_check %}
+{% load school_year_check %}
 {% load static from staticfiles %}
 {% load i18n %}
 <!doctype html>
@@ -114,8 +115,10 @@
             </div>
 
         </div>
-        {% if user.is_authenticated and not user|is_member and not request.session.no_member %}
-            <div class="modal fade" id="member-modal" tabindex="-1" role="dialog">
+        {#  User is authenticated,  not a member, haven't decline membership and a school year exists. #}
+        {% school_year_exists as school_year %}
+        {% if user.is_authenticated and not user|is_member and not request.session.no_member and school_year %}
+             <div class="modal fade" id="member-modal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -152,6 +155,29 @@
                 });
 
             </script>
+        {% endif %}
+        {% url 'profile' as profile_url %}
+        {% if user.is_authenticated and request.path != profile_url %}
+            {% if not user.first_name or not user.last_name or not user.email %}
+                <div class="modal fade" id="profile-modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">{% trans 'Add personal information' %} <i class="fa fa-exclamation-circle"></i></h5>
+                            </div>
+                            <div class="modal-body">
+                                <p>{% trans 'You need to add required information to your profile.' %}<br>
+                                    <a href="/profile">{% trans 'Link to your profile.' %}</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(window).on('load', function () {
+                        $('#profile-modal').modal('show');
+                    });
+                </script>
+            {% endif %}
         {% endif %}
         {% render_block "js" %}
     </body>

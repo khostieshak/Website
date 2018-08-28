@@ -1,0 +1,8 @@
+{% load member_check %}
+{% load cms_tags %}
+
+{% if user|is_member and instance.ShowForMembers or not user|is_member and not instance.ShowForMembers  %}
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
+{% endif %}
