@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-28 16:23+0200\n"
-"PO-Revision-Date: 2018-08-28 16:27+0200\n"
+"POT-Creation-Date: 2018-08-30 12:11+0200\n"
+"PO-Revision-Date: 2018-08-30 12:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -182,8 +182,8 @@ msgstr "Gå till adminsidan"
 msgid "Free"
 msgstr "Ledig"
 
-#: .\maskin\admin.py:13 .\maskin\templates\checkin_search.html:8
-#: .\maskin\templates\signups.html:9
+#: .\maskin\admin.py:13 .\maskin\templates\checkin_connect.html:6
+#: .\maskin\templates\checkin_search.html:8 .\maskin\templates\signups.html:9
 msgid "Name"
 msgstr "Namn"
 
@@ -410,13 +410,17 @@ msgstr "Checka in"
 msgid "Pick event"
 msgstr "Välj event"
 
-#: .\maskin\templates\checkin.html:24 .\maskin\templates\checkin.html:30
+#: .\maskin\templates\checkin.html:24
 msgid "Search"
 msgstr "Sök"
 
 #: .\maskin\templates\checkin.html:25 .\maskin\templates\checkin.html:37
 msgid "Blip"
 msgstr "Blippa"
+
+#: .\maskin\templates\checkin.html:30 .\maskin\templates\checkin.html:71
+msgid "First name, last name, LiuID"
+msgstr "Förnamn, efternamn, LiUID"
 
 #: .\maskin\templates\checkin.html:53
 msgid "Remove sign up"
@@ -438,18 +442,35 @@ msgstr "Ja, jag är säker."
 msgid "No"
 msgstr "Nej"
 
-#: .\maskin\templates\checkin.html:171
+#: .\maskin\templates\checkin.html:68
+msgid "Connect LiU card"
+msgstr "Koppla LiU-kortnummer"
+
+#: .\maskin\templates\checkin.html:140
+msgid "Connect to user"
+msgstr "Koppla till användare"
+
+#: .\maskin\templates\checkin.html:212
 #: .\maskin\templates\checkin_search.html:19
 msgid "Already checked in"
 msgstr "Redan incheckad"
 
-#: .\maskin\templates\checkin_search.html:9 .\maskin\templates\signups.html:10
-msgid "Membership"
-msgstr "Medlemskap"
+#: .\maskin\templates\checkin_connect.html:7
+msgid "Connect"
+msgstr "Koppla"
 
+#: .\maskin\templates\checkin_connect.html:17
+msgid "Connect and check in"
+msgstr "Koppla och checka in"
+
+#: .\maskin\templates\checkin_connect.html:23
 #: .\maskin\templates\checkin_search.html:38
 msgid "No users found."
 msgstr "Inga användare hittade."
+
+#: .\maskin\templates\checkin_search.html:9 .\maskin\templates\signups.html:10
+msgid "Membership"
+msgstr "Medlemskap"
 
 #: .\maskin\templates\djangocms_video\fullwidth\video_player.html:20
 msgid "Your browser doesn't support this video format."
@@ -503,13 +524,17 @@ msgstr "Ta bort"
 msgid "No sign ups found."
 msgstr "Inga registreringar hittade."
 
-#: .\maskin\views.py:108
+#: .\maskin\views.py:114
 msgid "No student found with card number: "
 msgstr "Ingen student med kortnummer: "
 
-#: .\maskin\views.py:112
-msgid "Already checked in to this event."
-msgstr "Redan incheckad på detta event."
+#: .\maskin\views.py:120
+msgid "More than one user with card number: "
+msgstr "Det finns fler användare med kortnummer: "
+
+#: .\maskin\views.py:131
+msgid "is already checked in to this event."
+msgstr "är redan incheckad på detta event."
 
 #~ msgid "app config"
 #~ msgstr "app konfiguration"

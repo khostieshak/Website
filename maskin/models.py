@@ -55,7 +55,7 @@ class Profile(models.Model):
     program = models.CharField(_("Program"), max_length=10, blank=True, choices=PROGRAM_CHOICES)
     start_year = models.IntegerField(_("Start year"), default=0)
     master = models.CharField(_("Master profile"), max_length=30, blank=True)
-    rfid = models.IntegerField(_("LiUID Card number"), default=0)
+    rfid = models.BigIntegerField(_("LiUID Card number"), default=0)
 
     def __str__(self):
         return self.user.username

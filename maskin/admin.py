@@ -3,7 +3,7 @@ from . import models
 from django.utils.translation import ugettext_lazy as _
 
 class ProfileAdmin(admin.ModelAdmin):
-    search_fields = ('user__username', 'user__first_name', 'user__last_name', )
+    search_fields = ('user__username', 'user__first_name', 'user__last_name', 'rfid' )
     list_display = ('user', 'get_name', 'program', 'start_year' )
     list_filter = ('program', 'start_year')
 

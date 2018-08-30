@@ -43,7 +43,7 @@ class ProfileForm(ModelForm):
         widgets = {
             'phone': TextInput(attrs={'class': 'form-control'}),
             'program': Select(attrs={'class': 'form-control'}),
-            'start_year': NumberInput(attrs={'class': 'form-control', 'min': 1969}),
+            'start_year': NumberInput(attrs={'class': 'form-control', 'min': 1969, 'required': 'true'}),
             'master': TextInput(attrs={'class': 'form-control'}),
             'rfid': NumberInput(attrs={'class': 'form-control'})
         }

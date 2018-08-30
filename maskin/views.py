@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.db import transaction, IntegrityError
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from forms import UserForm, ProfileForm, MemberForm
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -7,9 +8,6 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User,  Group
 import models
 from django.db.models import Q
-import urllib2
-import json
-import os
 import datetime
 import pytz
 from django.conf import settings
@@ -31,8 +29,8 @@ def is_member(user):
 @transaction.atomic
 def update_profile(request):
     if request.method == 'POST':
+        member_form = MemberForm(request.POST)
         if not is_member(request.user):
-            member_form = MemberForm(request.POST)
             if member_form.is_valid() and member_form.cleaned_data['becomeMember']:
                 group_name = models.SchoolYear.objects.current().get_member_group()
                 g = Group.objects.get(name=group_name)
@@ -80,36 +78,58 @@ def ajax_search(request):
     return render(request, 'checkin_search.html', {'users': qs[:5], 'eventid': eventid})
 
 
+def ajax_connect(request):
+    if request.method == 'GET':
+        query = request.GET['query']
+    qs = User.objects.all()
+    for term in query.split():
+        qs = qs.filter(Q(first_name__icontains=term) |
+                       Q(last_name__icontains=term) |
+                       Q(username__icontains=term))
+
+    return render(request, 'checkin_connect.html', {'users': qs[:5]})
+
+def ajax_userconnect(request):
+    if request.method == 'GET':
+        liuid = request.GET['liuid']
+        rfid = request.GET['rfid']
+
+        user = User.objects.get(username=liuid)
+        user.profile.rfid = rfid;
+        user.save()
+
+        return ajax_checkin(request)
+
 @login_required()
 def ajax_blip(request):
     if request.user.has_perm('maskin.add_signup'):
         if request.method == 'GET':
             query = request.GET['query']
+            event = models.Event.objects.get(id=request.GET['eventid'])
+
             try:
-                req = urllib2.Request('https://kobra.karservice.se/api/v1/students/' + query + '/')
-                req.add_header('Authorization', 'Token ' + os.environ.get('KOBRA_API_TOKEN'))
-                resp = urllib2.urlopen(req)
-                content = resp.read()
-                student = json.loads(content)
-                user, created = User.objects.get_or_create(username=student['liu_id'])
-                if created:
-                    names = student['name'].encode('utf-8').split()
-                    last_name = ' '.join(map(str, names[1:]))  # in case of several last names
-                    user.first_name = names[0]
-                    user.last_name = last_name
-                    user.email = student['email']
-                    user.save()
-                event = models.Event.objects.get(id=request.GET['eventid'])
-                tz = pytz.timezone(settings.TIME_ZONE)
-                now = tz.localize(datetime.datetime.now())
-                obj = models.Signup(user=user, event=event, timestamp=now)
-                obj.save()
-            except urllib2.HTTPError:
-                response = JsonResponse({"msg": (_("No student found with card number: ") + query).encode('utf-8')})
+                user = User.objects.get(profile__rfid__exact=query)
+            except ObjectDoesNotExist:
+                response = JsonResponse({
+                    "msg": (_("No student found with card number: ") + query).encode('utf-8')
+                })
+                response.status_code = 404  # No student found
+                return response
+            except MultipleObjectsReturned:
+                response = JsonResponse({
+                    "msg": (_("More than one user with card number: ") + query).encode('utf-8')
+                })
                 response.status_code = 400  # Bad request
                 return response
+
+            tz = pytz.timezone(settings.TIME_ZONE)
+            now = tz.localize(datetime.datetime.now())
+            try:
+                obj = models.Signup(user=user, event=event, timestamp=now)
+                obj.save()
             except IntegrityError:
-                response = JsonResponse({"msg": (_("Already checked in to this event.")).encode('utf-8')})
+                msg = user.first_name + " " + user.last_name + ", " + user.username + ", " + unicode(_("is already checked in to this event."))
+                response = JsonResponse({"msg": msg})
                 response.status_code = 400  # Bad request
                 return response
 

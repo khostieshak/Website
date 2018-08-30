@@ -27,7 +27,7 @@
                 <div class="alert alert-danger collapse" role="alert" id="errormsg">
                 </div>
                     <div class="collapse" id="search">
-                            <input class="form-control" type="text" id="search_field" placeholder="{% trans 'Search' %}">
+                            <input class="form-control" type="text" id="search_field" placeholder="{% trans 'First name, last name, LiuID' %}">
                         <div class="row">
                             <div class="col" id="search_results">
                             </div>
@@ -61,6 +61,19 @@
         </div>
     </div>
 
+    <div class="modal fade" id="connect-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{% trans 'Connect LiU card' %} </h5>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="text" id="search_field_connect" data-rfid="" placeholder="{% trans 'First name, last name, LiuID' %}">
+                    <div id="search_results_connect"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 
 {% block javascript %}
@@ -82,13 +95,31 @@
             });
         }
     });
-    $("#blip_field").keyup(function (e) {
+    $("#search_field_connect").keyup(function () {
+        var rfid = $("#connect-btn").data('rfid');
 
+        if(this.value.length > 2) {
+            $.ajax({
+                url: '/{{ LANGUAGE_CODE }}/ajax/connect',
+                data: {
+                    'query': $(this).val(),
+                    'rfid': rfid,
+                },
+                datatype: 'html',
+                success: function (data) {
+                    $("#search_results_connect").html(data);
+                }
+            });
+        }
+    });
+
+    $("#blip_field").keyup(function (e) {
         if(e.which == 13) { // Hit enter
+            var query = $(this).val();
             $.ajax({
                 url: '/{{ LANGUAGE_CODE }}/ajax/blip',
                 data: {
-                    'query': $(this).val(),
+                    'query': query,
                     'eventid': $("#event-picker option:selected").data('id'),
                 },
                 datatype: 'html',
@@ -100,6 +131,15 @@
                 error: function (data) {
                     if (data.status == 400){
                         $("#errormsg").text(data.responseJSON.msg);
+                    }else if(data.status == 404) {
+
+                        $("#errormsg").html(
+                            data.responseJSON.msg +
+                            ' <button type="button" class="btn btn-outline-danger btn-sm" id="connect-btn" data-toggle="modal" data-target="#connect-modal"' +
+                            'data-rfid='+ query +'>'+
+                            ' {% trans 'Connect to user' %}</button>'
+                        );
+
                     }else{
                         $("#errormsg").text('Unknown error');
                     }
@@ -109,6 +149,7 @@
             });
         }
     });
+
     $(".btn-input").on('click', function () {
         $(".btn-input").removeClass('active');
         $(this).addClass('active');
@@ -171,6 +212,30 @@
                     btn.text('{% trans 'Already checked in' %}');
                     btn.removeClass('btn-maskin');
                     btn.addClass('btn-light');
+                }
+        });
+    });
+
+     $('#connect-modal').on('click', '.connect-btn', function () {
+        var btn = $(this);
+        var liuid = $(this).data('liuid');
+        var rfid = $("#connect-btn").data('rfid');
+        var eventid=$("#event-picker option:selected").data('id');
+        $.ajax({
+            url: '/{{ LANGUAGE_CODE }}/ajax/userconnect',
+            data: {
+                'liuid': liuid,
+                'rfid': rfid,
+                'eventid': eventid
+            },
+            datatype: 'html',
+                success: function (data) {
+                    $("#signups").html(data);
+                    $("#errormsg").hide();
+                    $('#connect-modal').modal('hide')
+                    $("#search_results_connect").html("");
+                    $("#search_field_connect").val("");
+                    $("#blip_field").focus();
                 }
         });
     });
