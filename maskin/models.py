@@ -45,7 +45,7 @@ class Profile(models.Model):
     member = models.ManyToManyField(SchoolYear, blank=True,  verbose_name=_("Member years"))
     phone = models.CharField(_("Phone number"), max_length=30, blank=True)
     PROGRAM_CHOICES=(
-        ("M", _("Mechanical engingering")),
+        ("M", _("Mechanical engineering")),
         ("DPU", _("Design and Product Development")),
         ("EMM", _("Energy-Environment-Management")),
         ("MASTER", _("Masterprogram")),
@@ -55,7 +55,7 @@ class Profile(models.Model):
     program = models.CharField(_("Program"), max_length=10, blank=True, choices=PROGRAM_CHOICES)
     start_year = models.IntegerField(_("Start year"), default=0)
     master = models.CharField(_("Master profile"), max_length=30, blank=True)
-    rfid = models.BigIntegerField(_("LiUID Card number"), default=0)
+    rfid = models.BigIntegerField(_("LiU-ID Card number"), default=0)
 
     def __str__(self):
         return self.user.username

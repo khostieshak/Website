@@ -48,7 +48,7 @@ class ProfileForm(ModelForm):
             'rfid': NumberInput(attrs={'class': 'form-control'})
         }
         help_texts = {
-            'rfid': 'You find your number on the back of your LiUID.',
+            'rfid': unicode(_("You find your number on the back of your LiU-ID.")),
         }
 
 

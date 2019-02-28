@@ -20,11 +20,11 @@ msgstr ""
 
 #: .\advent_calendar\cms_appconfig.py:7
 msgid "start date"
-msgstr "start datum"
+msgstr "startdatum"
 
 #: .\advent_calendar\cms_appconfig.py:8
 msgid "publish time"
-msgstr "publicerings tid"
+msgstr "publiceringstid"
 
 #: .\advent_calendar\cms_appconfig.py:9
 msgid "background image"
@@ -65,7 +65,7 @@ msgstr "Boknings app"
 
 #: .\booking_app\forms.py:11
 msgid "Committee or name (for private use)"
-msgstr "Utskott/kommitté/förening eller namn (för privat bruk)"
+msgstr "Utskott/förening eller namn (för privat bruk)"
 
 #: .\booking_app\models.py:21 .\booking_app\models.py:44 .\maskin\models.py:27
 #: .\maskin\models.py:82
@@ -163,8 +163,8 @@ msgid "Made by"
 msgstr "Skapad av"
 
 #: .\booking_app\templates\info.html:10
-msgid "LiuID"
-msgstr "LiuID"
+msgid "LiU-ID"
+msgstr "LiU-ID"
 
 #: .\booking_app\templates\info.html:11
 msgid "Phone"
@@ -193,7 +193,7 @@ msgstr "Senaste artiklar per kategori"
 
 #: .\maskin\cms_plugins.py:26
 msgid "Show for members"
-msgstr "Visa för medlemar"
+msgstr "Visa för medlemmar"
 
 #: .\maskin\forms.py:10 .\maskin\templates\base.html:125
 #: .\maskin\templates\signups.html:26
@@ -262,7 +262,7 @@ msgid "Master profile"
 msgstr "Masterprofil"
 
 #: .\maskin\models.py:58
-msgid "LiUID Card number"
+msgid "LiU-ID Card number"
 msgstr "LiU-kortnummer"
 
 #: .\maskin\models.py:64 .\maskin\templates\profile.html:6
@@ -312,11 +312,11 @@ msgstr "%(app_title)s senaste artiklar per kategori: %(latest_articles)s"
 
 #: .\maskin\models.py:144
 msgid "Show for members only."
-msgstr "Visa endast för medlemmar endast."
+msgstr "Visa endast för medlemmar."
 
 #: .\maskin\models.py:144
 msgid "Show for none members only."
-msgstr "Visa för icke medlemmar endast."
+msgstr "Visa för icke-medlemmar endast."
 
 #: .\maskin\settings\base.py:149
 msgid "swedish"
@@ -335,7 +335,7 @@ msgid "Page not found"
 msgstr "Sidan kan inte hittas"
 
 #: .\maskin\templates\404.html:11
-msgid "The page dosen't exist or is under construction."
+msgid "The page doesn't exist or is under construction."
 msgstr "Sidan du letade efter finns inte eller är under uppbyggnad."
 
 #: .\maskin\templates\500.html:5
@@ -380,7 +380,7 @@ msgstr "Logga in"
 
 #: .\maskin\templates\base.html:128
 msgid "You are not a member of the association. Want to become one?"
-msgstr "Du är inte medlem i sektionen för det här läsåret. Vill du bli det?"
+msgstr "Du är inte medlem på sektionen för det här läsåret. Vill du bli det?"
 
 #: .\maskin\templates\base.html:129
 msgid "Yes, sign me up!"
@@ -396,7 +396,7 @@ msgstr "Lägg till personuppgifter"
 
 #: .\maskin\templates\base.html:169
 msgid "You need to add required information to your profile."
-msgstr "Du måste lägga till obligatoriska uppgifter i din profil."
+msgstr "Du måste fylla i obligatoriska uppgifter i din profil."
 
 #: .\maskin\templates\base.html:170
 msgid "Link to your profile."
@@ -489,7 +489,7 @@ msgid "Permission denied, please contact the webmaster."
 msgstr "Tillstånd nekad, kontakta webbansvarig."
 
 #: .\maskin\templates\profile.html:13
-msgid "You are registerd as a member for Maskinsektionen for this school year!"
+msgid "You are registered as a member for Maskinsektionen for this school year!"
 msgstr "Du är medlem i Maskinteknolgsektionen för det här läsåret!"
 
 #: .\maskin\templates\profile.html:17
@@ -510,7 +510,7 @@ msgstr "incheckade"
 
 #: .\maskin\templates\signups.html:3
 msgid "members"
-msgstr "medlemar"
+msgstr "medlemmar"
 
 #: .\maskin\templates\signups.html:7
 msgid "Timestamp"
@@ -535,6 +535,10 @@ msgstr "Det finns fler användare med kortnummer: "
 #: .\maskin\views.py:131
 msgid "is already checked in to this event."
 msgstr "är redan incheckad på detta event."
+
+#: .\maskin\forms.py:51
+msgid "You find your number on the back of your LiU-ID."
+msgstr "Du hittar ditt kortnummer på baksidan av ditt LiU-ID."
 
 #~ msgid "app config"
 #~ msgstr "app konfiguration"
@@ -568,3 +572,4 @@ msgstr "är redan incheckad på detta event."
 
 #~ msgid "sv"
 #~ msgstr "sv"
+

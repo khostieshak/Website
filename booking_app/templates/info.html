@@ -7,7 +7,7 @@
         <tr><td><b>{% trans 'Start' %}</b></td><td>{{ booking.start }}</td></tr>
         <tr><td><b>{% trans 'End' %}</b></td><td>{{ booking.end }}</td></tr>
         <tr><td><b>{% trans 'Made by' %}</b></td><td>{{ booking.madeBy.first_name }} {{ booking.madeBy.last_name }}</td></tr>
-        <tr><td><b>{% trans 'LiuID' %}</b></td><td>{{ booking.madeBy.username }}</td></tr>
+        <tr><td><b>{% trans 'LiU-ID' %}</b></td><td>{{ booking.madeBy.username }}</td></tr>
         <tr><td><b>{% trans 'Phone' %}</b></td><td>{{ booking.madeBy.profile.phone }}</td></tr>
         <tr><td><b>{% trans 'Email' %}</b></td><td>{{ booking.madeBy.email }}</td></tr>
     </table>

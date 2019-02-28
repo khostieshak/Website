@@ -10,7 +10,7 @@
         <div class="col main-content">
             {% if user|is_member %}
                 <div class="alert alert-success" role="alert">
-                    {% trans 'You are registerd as a member for Maskinsektionen for this school year!' %} {% trans 'School year' %} {{ school_year.name }}.
+                    {% trans 'You are registered as a member for Maskinsektionen for this school year!' %} {% trans 'School year' %} {{ school_year.name }}.
                 </div>
             {% elif school_year.name %} {# Check that a current school year exists #}
                 <div class="alert alert-danger" role="alert">
@@ -28,6 +28,7 @@
                 </table>
                 <button type="submit" class="btn btn-maskin">{% trans 'Save changes'%}</button>
             </form>
+            <br />
             {% trans 'To delete your profile please contact' %}
              <a href='mailto:info@maskinteknologsektionen.se'>info@maskinteknologsektionen.se</a>
 
